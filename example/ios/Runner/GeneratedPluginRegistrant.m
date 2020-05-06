@@ -9,8 +9,8 @@
 #else
 @import lsnetchatplugin;
 #endif
-@implementation GeneratedPluginRegistrant
 
+@implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [LsnetchatpluginPlugin registerWithRegistrar:[registry registrarForPlugin:@"LsnetchatpluginPlugin"]];
