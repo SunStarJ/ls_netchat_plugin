@@ -1,6 +1,10 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## NIMSDK
+
+Copyright 2020 Netease 
+
 ## lsnetchatplugin
 
 TODO: Add your license here.

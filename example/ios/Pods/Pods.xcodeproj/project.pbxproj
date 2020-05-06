@@ -16,91 +16,122 @@
 			);
 			name = Flutter;
 		};
+		5B9C09E1308DA5C3C5B54071EE7D6140 /* NIMSDK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5DBFCCEA92B211BB2AD5A918CA329540 /* Build configuration list for PBXAggregateTarget "NIMSDK" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = NIMSDK;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2F0951FF9D7195ADA5D8EFDA9EB39566 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		7661488E624E0C782FF9E30FFBE9E461 /* Pods-Runner-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 96BF45FBE2BC9AD7B2D7E56D01B5EE46 /* Pods-Runner-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7A4142087B5DE30D9FE8A9DE7DD29C56 /* lsnetchatplugin-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D873C3CA33DDF4E1CC9DC9482C4DD650 /* lsnetchatplugin-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		883E857EA7598C122D3670A462159A1E /* lsnetchatplugin-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BAA6B597BDE2D7B7F182E61A408693 /* lsnetchatplugin-dummy.m */; };
-		9CCC93F8EE9E41E00F3D09D5162213D6 /* LsnetchatpluginPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D307109BCCC547B88EE036A63DF08CA /* LsnetchatpluginPlugin.m */; };
-		A7FB231CFBF50924A08B4E16F42569BB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		ED228696719A98F49F7994A8B0B7E1A2 /* LsnetchatpluginPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = D04DA67F6853C52F5EF5325742FFA47F /* LsnetchatpluginPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE34478E7E766EEFE79566B78575352 /* Pods-Runner-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3C932BD54DBB963102A89E0F9E3948 /* Pods-Runner-dummy.m */; };
-		F1E2BC6AAFCB9BE0F1F579912A63EB13 /* SwiftLsnetchatpluginPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8A3572528AA5C6F67A16355269E10 /* SwiftLsnetchatpluginPlugin.swift */; };
+		4B87D2E70A581B34C318EEF87ECB980B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		4C0183C99A0C85DC036C805E25F8B79C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		576EE73A0E9A52A4A8480A6B5DD54161 /* LsnetchatpluginPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D307109BCCC547B88EE036A63DF08CA /* LsnetchatpluginPlugin.m */; };
+		7572762125839BE02B1DB853BDAB5DF1 /* lsnetchatplugin-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BAA6B597BDE2D7B7F182E61A408693 /* lsnetchatplugin-dummy.m */; };
+		7C4121ADD5C65AC3A0C3AD8910830A68 /* lsnetchatplugin-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D873C3CA33DDF4E1CC9DC9482C4DD650 /* lsnetchatplugin-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A6B1E9AA8A0177044909361FA6037E2F /* Pods-Runner-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E327F2724AD228E525A39F7A2F96A48A /* Pods-Runner-dummy.m */; };
+		AC1C128902682DC39E7D015757DFFE45 /* SwiftLsnetchatpluginPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8A3572528AA5C6F67A16355269E10 /* SwiftLsnetchatpluginPlugin.swift */; };
+		C105F04BFBD5D3D9FCED0E78E56C1BC0 /* Pods-Runner-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F3FD89A3C35F3ED2DDAE100615C517D1 /* Pods-Runner-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E403BAAA98B12182AEC42C290E744DFD /* LsnetchatpluginPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = D04DA67F6853C52F5EF5325742FFA47F /* LsnetchatpluginPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		54C988D92E6393E96F48C3DFAF566C9D /* PBXContainerItemProxy */ = {
+		66E9AC92F0DEC68FE37E006E6663A683 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 1EFDDC32A34D56D411E640A81DCD9E73;
-			remoteInfo = Flutter;
+			remoteGlobalIDString = 5B9C09E1308DA5C3C5B54071EE7D6140;
+			remoteInfo = NIMSDK;
 		};
-		5E7F2D54259FC9BBC992FD9667ADF224 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1EFDDC32A34D56D411E640A81DCD9E73;
-			remoteInfo = Flutter;
-		};
-		A44C9C9907A9C5FDEFEC291742EFECEB /* PBXContainerItemProxy */ = {
+		807208781B14B4303528904B2CC1C4EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8C0202083D23ED046DD53FAA2DB5348D;
 			remoteInfo = lsnetchatplugin;
 		};
+		AEE23A17517767D049662EC86466C109 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EFDDC32A34D56D411E640A81DCD9E73;
+			remoteInfo = Flutter;
+		};
+		B7C17C58D70B5D30AEDA24C468003E59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B9C09E1308DA5C3C5B54071EE7D6140;
+			remoteInfo = NIMSDK;
+		};
+		F3A8FA50C52DFFB566DD35D796495080 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EFDDC32A34D56D411E640A81DCD9E73;
+			remoteInfo = Flutter;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0793A15DC6D0A506E6F327E4C1FE11CA /* lsnetchatplugin.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = lsnetchatplugin.podspec; path = ../../../../../../ios/lsnetchatplugin.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0BD20AE35B1FB49738DDE9AB8FDDB696 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../../../../../../LICENSE; sourceTree = "<group>"; };
+		167F1E5A155A90F6D091BB034814E7C0 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		19CAABD3DDB57F99BFCBDCCB989BE3B5 /* NIMSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NIMSDK.framework; path = NIMSDK/NIMSDK.framework; sourceTree = "<group>"; };
+		19E9B742E6CC05D299852854B0FAAF81 /* Pods-Runner-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Runner-resources.sh"; sourceTree = "<group>"; };
+		1CF888121876FAA72F40641BDA524420 /* NIMSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NIMSDK.debug.xcconfig; sourceTree = "<group>"; };
+		21469BBE5222E7D6B6F83B24820F1EC7 /* Pods-Runner-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Runner-Info.plist"; sourceTree = "<group>"; };
 		2D307109BCCC547B88EE036A63DF08CA /* LsnetchatpluginPlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LsnetchatpluginPlugin.m; path = ../../../../../../../ios/Classes/LsnetchatpluginPlugin.m; sourceTree = "<group>"; };
-		317C26B9A7CEDD34ADE8F37FAAB7AC20 /* Pods-Runner-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Runner-frameworks.sh"; sourceTree = "<group>"; };
+		3038D58B1D3F2FDA1398C12BCF14D248 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		487BF673B4C68EC7E51CB7818907DA64 /* Flutter.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = Flutter.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		51825CD8F0558EFA53D9510F0E5BFA16 /* Pods-Runner-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Runner-Info.plist"; sourceTree = "<group>"; };
+		516263C779FD33E5A836DB6E3E291788 /* NMCVideoFilter.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = NMCVideoFilter.bundle; path = NIMAVChat/Resources/NMCVideoFilter.bundle; sourceTree = "<group>"; };
+		62E1181A0CFD348A8D591F2613A4494B /* Pods-Runner-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Runner-frameworks.sh"; sourceTree = "<group>"; };
+		62E48D2C41431AED126EFFA3A9BF8E3E /* NIMAVChat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NIMAVChat.framework; path = NIMAVChat/NIMAVChat.framework; sourceTree = "<group>"; };
 		669E8F25E1897672BDB80B7EB784DA24 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Runner.framework; path = "Pods-Runner.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		699DACA8FAD2D77C47398A506605CE9A /* lsnetchatplugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = lsnetchatplugin.framework; path = lsnetchatplugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A17E319973EAD41147281568852158B /* lsnetchatplugin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = lsnetchatplugin.debug.xcconfig; sourceTree = "<group>"; };
-		7B3C932BD54DBB963102A89E0F9E3948 /* Pods-Runner-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Runner-dummy.m"; sourceTree = "<group>"; };
+		80BF9B6370D3FDB139ABC19C7736EC86 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		891BA681DAC8C389CDDA847C116AF249 /* Flutter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Flutter.debug.xcconfig; sourceTree = "<group>"; };
-		96BF45FBE2BC9AD7B2D7E56D01B5EE46 /* Pods-Runner-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Runner-umbrella.h"; sourceTree = "<group>"; };
 		99DE0BF3AA61D01DAC17E51990122A4E /* Flutter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Flutter.release.xcconfig; sourceTree = "<group>"; };
+		9A90735603F739C1074B09A60D205713 /* NMCBasicModuleFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NMCBasicModuleFramework.framework; path = NIMAVChat/NMCBasicModuleFramework.framework; sourceTree = "<group>"; };
 		9C1BACC0A9261CB1ECFB8233D66A3004 /* lsnetchatplugin.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = lsnetchatplugin.modulemap; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9F79F8269DC34AC56BB3D1D9652C0D86 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		A23CF20FF13A56679E1C9F58F1793F6A /* Flutter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Flutter.framework; sourceTree = "<group>"; };
 		ABA8A3572528AA5C6F67A16355269E10 /* SwiftLsnetchatpluginPlugin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftLsnetchatpluginPlugin.swift; path = ../../../../../../../ios/Classes/SwiftLsnetchatpluginPlugin.swift; sourceTree = "<group>"; };
+		AC07E0A06E92595FA267D23AE55EECFE /* Pods-Runner-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Runner-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B4CC3034DF85DAB9CF529C820C7B7966 /* lsnetchatplugin-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "lsnetchatplugin-prefix.pch"; sourceTree = "<group>"; };
+		BA493FC6C34A5FA22768E7D61DBBB305 /* NIMSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NIMSDK.release.xcconfig; sourceTree = "<group>"; };
 		BF64E4ADC71C75F4F50D53355DCBAD73 /* lsnetchatplugin-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "lsnetchatplugin-Info.plist"; sourceTree = "<group>"; };
-		C6EA98402A94995D022D330B64B5203D /* Pods-Runner-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Runner-acknowledgements.markdown"; sourceTree = "<group>"; };
-		CDAECCF4B5E08124ED410F09FD5A5DF9 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		C7939B277753A90B7D85D7F8476FB02F /* Pods-Runner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Runner.modulemap"; sourceTree = "<group>"; };
+		C973C77489D5775AFFC8D459835288D1 /* NMC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NMC.framework; path = NIMAVChat/NMC.framework; sourceTree = "<group>"; };
 		D04DA67F6853C52F5EF5325742FFA47F /* LsnetchatpluginPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LsnetchatpluginPlugin.h; path = ../../../../../../../ios/Classes/LsnetchatpluginPlugin.h; sourceTree = "<group>"; };
-		D2FA70CA298C392CB8332ADEEDD1CE85 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		D6A24488DE8E0C02A8D7606B60CFF72F /* lsnetchatplugin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = lsnetchatplugin.release.xcconfig; sourceTree = "<group>"; };
 		D873C3CA33DDF4E1CC9DC9482C4DD650 /* lsnetchatplugin-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "lsnetchatplugin-umbrella.h"; sourceTree = "<group>"; };
 		D8BAA6B597BDE2D7B7F182E61A408693 /* lsnetchatplugin-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "lsnetchatplugin-dummy.m"; sourceTree = "<group>"; };
-		D9F2B4CB813B4BDC4D164C6E0868930A /* Pods-Runner-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Runner-acknowledgements.plist"; sourceTree = "<group>"; };
-		F49C32B3B8CF59AB437BFD7314674868 /* Pods-Runner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Runner.modulemap"; sourceTree = "<group>"; };
+		E327F2724AD228E525A39F7A2F96A48A /* Pods-Runner-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Runner-dummy.m"; sourceTree = "<group>"; };
+		EF54BEED02A5A4DE8C36633724F64B59 /* Pods-Runner-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Runner-acknowledgements.plist"; sourceTree = "<group>"; };
+		F3FD89A3C35F3ED2DDAE100615C517D1 /* Pods-Runner-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Runner-umbrella.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5A11A3158482B3313C2BB23289C276AF /* Frameworks */ = {
+		B5136E0C0BF385631A243D29A0902587 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7FB231CFBF50924A08B4E16F42569BB /* Foundation.framework in Frameworks */,
+				4C0183C99A0C85DC036C805E25F8B79C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A8EA34CAD51B901F38FA7BCC1D2453B9 /* Frameworks */ = {
+		FAA5ACE07D297BB8F94BA2413084CE4A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F0951FF9D7195ADA5D8EFDA9EB39566 /* Foundation.framework in Frameworks */,
+				4B87D2E70A581B34C318EEF87ECB980B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +145,33 @@
 			);
 			name = ios;
 			path = ios;
+			sourceTree = "<group>";
+		};
+		211B6B161603F5FE5E66CA3385FF3F2D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				516263C779FD33E5A836DB6E3E291788 /* NMCVideoFilter.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		22AF639ACF9A41217B5CE48652CCC36F /* Pods-Runner */ = {
+			isa = PBXGroup;
+			children = (
+				C7939B277753A90B7D85D7F8476FB02F /* Pods-Runner.modulemap */,
+				AC07E0A06E92595FA267D23AE55EECFE /* Pods-Runner-acknowledgements.markdown */,
+				EF54BEED02A5A4DE8C36633724F64B59 /* Pods-Runner-acknowledgements.plist */,
+				E327F2724AD228E525A39F7A2F96A48A /* Pods-Runner-dummy.m */,
+				62E1181A0CFD348A8D591F2613A4494B /* Pods-Runner-frameworks.sh */,
+				21469BBE5222E7D6B6F83B24820F1EC7 /* Pods-Runner-Info.plist */,
+				19E9B742E6CC05D299852854B0FAAF81 /* Pods-Runner-resources.sh */,
+				F3FD89A3C35F3ED2DDAE100615C517D1 /* Pods-Runner-umbrella.h */,
+				3038D58B1D3F2FDA1398C12BCF14D248 /* Pods-Runner.debug.xcconfig */,
+				167F1E5A155A90F6D091BB034814E7C0 /* Pods-Runner.profile.xcconfig */,
+				80BF9B6370D3FDB139ABC19C7736EC86 /* Pods-Runner.release.xcconfig */,
+			);
+			name = "Pods-Runner";
+			path = "Target Support Files/Pods-Runner";
 			sourceTree = "<group>";
 		};
 		3362DF3B6A414DDE27F7AC03734AE7DA /* plugins */ = {
@@ -136,6 +194,14 @@
 			path = ../.symlinks/plugins/lsnetchatplugin/ios;
 			sourceTree = "<group>";
 		};
+		45E6C9298F1936E4C9C455A4F54075CE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E63B607AB57E1C62FCA410464AA30728 /* NIMSDK */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		4626636E153FB075983FB64D0F139022 /* .symlinks */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +209,17 @@
 			);
 			name = .symlinks;
 			path = .symlinks;
+			sourceTree = "<group>";
+		};
+		4DD2433BC55E6CD33CEAB29DB50B5A09 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				62E48D2C41431AED126EFFA3A9BF8E3E /* NIMAVChat.framework */,
+				19CAABD3DDB57F99BFCBDCCB989BE3B5 /* NIMSDK.framework */,
+				C973C77489D5775AFFC8D459835288D1 /* NMC.framework */,
+				9A90735603F739C1074B09A60D205713 /* NMCBasicModuleFramework.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		5068DD899D0FBB2649DDA89C8DC6817F /* Classes */ = {
@@ -208,30 +285,12 @@
 			path = "../../../../Pods/Target Support Files/lsnetchatplugin";
 			sourceTree = "<group>";
 		};
-		791C6E4B424AF06279F8918FA67B8ED6 /* Targets Support Files */ = {
+		7BFBD40CEA58281397A76A48B8C3BCD1 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				7B0D67477903E1EB8D6A9F9AF51BC5CC /* Pods-Runner */,
+				22AF639ACF9A41217B5CE48652CCC36F /* Pods-Runner */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		7B0D67477903E1EB8D6A9F9AF51BC5CC /* Pods-Runner */ = {
-			isa = PBXGroup;
-			children = (
-				F49C32B3B8CF59AB437BFD7314674868 /* Pods-Runner.modulemap */,
-				C6EA98402A94995D022D330B64B5203D /* Pods-Runner-acknowledgements.markdown */,
-				D9F2B4CB813B4BDC4D164C6E0868930A /* Pods-Runner-acknowledgements.plist */,
-				7B3C932BD54DBB963102A89E0F9E3948 /* Pods-Runner-dummy.m */,
-				317C26B9A7CEDD34ADE8F37FAAB7AC20 /* Pods-Runner-frameworks.sh */,
-				51825CD8F0558EFA53D9510F0E5BFA16 /* Pods-Runner-Info.plist */,
-				96BF45FBE2BC9AD7B2D7E56D01B5EE46 /* Pods-Runner-umbrella.h */,
-				CDAECCF4B5E08124ED410F09FD5A5DF9 /* Pods-Runner.debug.xcconfig */,
-				9F79F8269DC34AC56BB3D1D9652C0D86 /* Pods-Runner.profile.xcconfig */,
-				D2FA70CA298C392CB8332ADEEDD1CE85 /* Pods-Runner.release.xcconfig */,
-			);
-			name = "Pods-Runner";
-			path = "Target Support Files/Pods-Runner";
 			sourceTree = "<group>";
 		};
 		85E68959ED4DBE943A2DE602442A3330 /* Pod */ = {
@@ -261,6 +320,16 @@
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
+		C04D376FA5652D8B2F0CDFC3AD3A93E5 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1CF888121876FAA72F40641BDA524420 /* NIMSDK.debug.xcconfig */,
+				BA493FC6C34A5FA22768E7D61DBBB305 /* NIMSDK.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/NIMSDK";
+			sourceTree = "<group>";
+		};
 		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,8 +344,9 @@
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				96BDD6B2F92EFD7674A84798FD788F61 /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				45E6C9298F1936E4C9C455A4F54075CE /* Pods */,
 				62B7A9926F5BA9DE0CD043D8C657B185 /* Products */,
-				791C6E4B424AF06279F8918FA67B8ED6 /* Targets Support Files */,
+				7BFBD40CEA58281397A76A48B8C3BCD1 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -315,6 +385,17 @@
 			path = lsnetchatplugin;
 			sourceTree = "<group>";
 		};
+		E63B607AB57E1C62FCA410464AA30728 /* NIMSDK */ = {
+			isa = PBXGroup;
+			children = (
+				4DD2433BC55E6CD33CEAB29DB50B5A09 /* Frameworks */,
+				211B6B161603F5FE5E66CA3385FF3F2D /* Resources */,
+				C04D376FA5652D8B2F0CDFC3AD3A93E5 /* Support Files */,
+			);
+			name = NIMSDK;
+			path = NIMSDK;
+			sourceTree = "<group>";
+		};
 		E9A41FDE54894315A7793E973B2AA43E /* .. */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,20 +417,20 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		5244DB567C432552F6574BB146D49A83 /* Headers */ = {
+		AB12142F96BC8DA96169E3124F1E7FC3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A4142087B5DE30D9FE8A9DE7DD29C56 /* lsnetchatplugin-umbrella.h in Headers */,
-				ED228696719A98F49F7994A8B0B7E1A2 /* LsnetchatpluginPlugin.h in Headers */,
+				C105F04BFBD5D3D9FCED0E78E56C1BC0 /* Pods-Runner-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E541535C2A34372ED8D37F105299348F /* Headers */ = {
+		B501A69434A99799EAC1CBF45AF92B51 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7661488E624E0C782FF9E30FFBE9E461 /* Pods-Runner-umbrella.h in Headers */,
+				7C4121ADD5C65AC3A0C3AD8910830A68 /* lsnetchatplugin-umbrella.h in Headers */,
+				E403BAAA98B12182AEC42C290E744DFD /* LsnetchatpluginPlugin.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,18 +439,19 @@
 /* Begin PBXNativeTarget section */
 		8B74B458B450D74B75744B87BD747314 /* Pods-Runner */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0706D1F6CBB59C4386E3E6A7184D965A /* Build configuration list for PBXNativeTarget "Pods-Runner" */;
+			buildConfigurationList = 3BEAFE2729B6C10E3EB20D1FDCDEDE06 /* Build configuration list for PBXNativeTarget "Pods-Runner" */;
 			buildPhases = (
-				E541535C2A34372ED8D37F105299348F /* Headers */,
-				35F937E6CBE68826DFB8E8CAE916347F /* Sources */,
-				5A11A3158482B3313C2BB23289C276AF /* Frameworks */,
-				6B32E70E490B7A91D55F034B634931CB /* Resources */,
+				AB12142F96BC8DA96169E3124F1E7FC3 /* Headers */,
+				9BCEDBD63A351585967CED136CF639EE /* Sources */,
+				FAA5ACE07D297BB8F94BA2413084CE4A /* Frameworks */,
+				ED683C1B8E662D6353DF7524EADA0B7D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9958AC53652583EA920C78ABC210E929 /* PBXTargetDependency */,
-				ABFEEA2EC5BCE6B55DE71E0EC5B86F89 /* PBXTargetDependency */,
+				D3F23FE921152A7EDF8A43EEABE6E066 /* PBXTargetDependency */,
+				08A2D40374B63A41A04AA6EEDE88DBB2 /* PBXTargetDependency */,
+				E3B386DD2CEDFC036830CD7DF474A216 /* PBXTargetDependency */,
 			);
 			name = "Pods-Runner";
 			productName = "Pods-Runner";
@@ -378,17 +460,18 @@
 		};
 		8C0202083D23ED046DD53FAA2DB5348D /* lsnetchatplugin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 10A65FB0980A2805D01F5FFDBB9CD3BE /* Build configuration list for PBXNativeTarget "lsnetchatplugin" */;
+			buildConfigurationList = 5303BF910C53535CA99AC0177E499D15 /* Build configuration list for PBXNativeTarget "lsnetchatplugin" */;
 			buildPhases = (
-				5244DB567C432552F6574BB146D49A83 /* Headers */,
-				476F3974A6C44DC543796C86C2509CFA /* Sources */,
-				A8EA34CAD51B901F38FA7BCC1D2453B9 /* Frameworks */,
-				0EE9A49F3945F7661C848BE3C557AB18 /* Resources */,
+				B501A69434A99799EAC1CBF45AF92B51 /* Headers */,
+				B7CDD907E4168ABEC287FBA8B2947897 /* Sources */,
+				B5136E0C0BF385631A243D29A0902587 /* Frameworks */,
+				87D64EE4387A762908A4E1C1FB5408E4 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				8135C2EE55BBF3735B9210CD86A6B5FD /* PBXTargetDependency */,
+				0080B1A2497C7256B331F71A6E4419A4 /* PBXTargetDependency */,
+				44B158BD332A46904E3D34A604F717DA /* PBXTargetDependency */,
 			);
 			name = lsnetchatplugin;
 			productName = lsnetchatplugin;
@@ -419,20 +502,21 @@
 			targets = (
 				1EFDDC32A34D56D411E640A81DCD9E73 /* Flutter */,
 				8C0202083D23ED046DD53FAA2DB5348D /* lsnetchatplugin */,
+				5B9C09E1308DA5C3C5B54071EE7D6140 /* NIMSDK */,
 				8B74B458B450D74B75744B87BD747314 /* Pods-Runner */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0EE9A49F3945F7661C848BE3C557AB18 /* Resources */ = {
+		87D64EE4387A762908A4E1C1FB5408E4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6B32E70E490B7A91D55F034B634931CB /* Resources */ = {
+		ED683C1B8E662D6353DF7524EADA0B7D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -442,49 +526,76 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		35F937E6CBE68826DFB8E8CAE916347F /* Sources */ = {
+		9BCEDBD63A351585967CED136CF639EE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDE34478E7E766EEFE79566B78575352 /* Pods-Runner-dummy.m in Sources */,
+				A6B1E9AA8A0177044909361FA6037E2F /* Pods-Runner-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		476F3974A6C44DC543796C86C2509CFA /* Sources */ = {
+		B7CDD907E4168ABEC287FBA8B2947897 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				883E857EA7598C122D3670A462159A1E /* lsnetchatplugin-dummy.m in Sources */,
-				9CCC93F8EE9E41E00F3D09D5162213D6 /* LsnetchatpluginPlugin.m in Sources */,
-				F1E2BC6AAFCB9BE0F1F579912A63EB13 /* SwiftLsnetchatpluginPlugin.swift in Sources */,
+				7572762125839BE02B1DB853BDAB5DF1 /* lsnetchatplugin-dummy.m in Sources */,
+				576EE73A0E9A52A4A8480A6B5DD54161 /* LsnetchatpluginPlugin.m in Sources */,
+				AC1C128902682DC39E7D015757DFFE45 /* SwiftLsnetchatpluginPlugin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8135C2EE55BBF3735B9210CD86A6B5FD /* PBXTargetDependency */ = {
+		0080B1A2497C7256B331F71A6E4419A4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Flutter;
 			target = 1EFDDC32A34D56D411E640A81DCD9E73 /* Flutter */;
-			targetProxy = 54C988D92E6393E96F48C3DFAF566C9D /* PBXContainerItemProxy */;
+			targetProxy = AEE23A17517767D049662EC86466C109 /* PBXContainerItemProxy */;
 		};
-		9958AC53652583EA920C78ABC210E929 /* PBXTargetDependency */ = {
+		08A2D40374B63A41A04AA6EEDE88DBB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NIMSDK;
+			target = 5B9C09E1308DA5C3C5B54071EE7D6140 /* NIMSDK */;
+			targetProxy = 66E9AC92F0DEC68FE37E006E6663A683 /* PBXContainerItemProxy */;
+		};
+		44B158BD332A46904E3D34A604F717DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NIMSDK;
+			target = 5B9C09E1308DA5C3C5B54071EE7D6140 /* NIMSDK */;
+			targetProxy = B7C17C58D70B5D30AEDA24C468003E59 /* PBXContainerItemProxy */;
+		};
+		D3F23FE921152A7EDF8A43EEABE6E066 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Flutter;
 			target = 1EFDDC32A34D56D411E640A81DCD9E73 /* Flutter */;
-			targetProxy = 5E7F2D54259FC9BBC992FD9667ADF224 /* PBXContainerItemProxy */;
+			targetProxy = F3A8FA50C52DFFB566DD35D796495080 /* PBXContainerItemProxy */;
 		};
-		ABFEEA2EC5BCE6B55DE71E0EC5B86F89 /* PBXTargetDependency */ = {
+		E3B386DD2CEDFC036830CD7DF474A216 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = lsnetchatplugin;
 			target = 8C0202083D23ED046DD53FAA2DB5348D /* lsnetchatplugin */;
-			targetProxy = A44C9C9907A9C5FDEFEC291742EFECEB /* PBXContainerItemProxy */;
+			targetProxy = 807208781B14B4303528904B2CC1C4EB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		16DAD2F61B56866028244181F4576594 /* Release */ = {
+		0BF027181E435B2241787FE1835B5423 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA493FC6C34A5FA22768E7D61DBBB305 /* NIMSDK.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		121C1B78D5F7A9B33975C51FA7AA081B /* Profile */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D6A24488DE8E0C02A8D7606B60CFF72F /* lsnetchatplugin.release.xcconfig */;
 			buildSettings = {
@@ -514,38 +625,7 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
-		};
-		29B2EB16E82D06F5C0A66A064CAB1122 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6A17E319973EAD41147281568852158B /* lsnetchatplugin.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/lsnetchatplugin/lsnetchatplugin-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/lsnetchatplugin/lsnetchatplugin-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/lsnetchatplugin/lsnetchatplugin.modulemap";
-				PRODUCT_MODULE_NAME = lsnetchatplugin;
-				PRODUCT_NAME = lsnetchatplugin;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
+			name = Profile;
 		};
 		352472D9C0BF916CA06CD66D7F3465A1 /* Profile */ = {
 			isa = XCBuildConfiguration;
@@ -559,41 +639,6 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Profile;
-		};
-		3EEBF9700A7FB8B073FF8F1D0F0CB263 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F79F8269DC34AC56BB3D1D9652C0D86 /* Pods-Runner.profile.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-Runner/Pods-Runner-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Runner/Pods-Runner.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Profile;
 		};
@@ -657,6 +702,21 @@
 			};
 			name = Release;
 		};
+		510BBA4689715B4152BB226CE9CC9018 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA493FC6C34A5FA22768E7D61DBBB305 /* NIMSDK.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Profile;
+		};
 		6DB88287FBF0DDC642169D4FE56485F2 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -716,6 +776,41 @@
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Profile;
+		};
+		7C37D3A190FB14640ADA8E25387CF89E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80BF9B6370D3FDB139ABC19C7736EC86 /* Pods-Runner.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-Runner/Pods-Runner-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Runner/Pods-Runner.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		7EF7227D9B20A1D549000096ACCB23D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -781,6 +876,37 @@
 			};
 			name = Debug;
 		};
+		8FAF80E996A5BD1A96DA83B1EFF7DA02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A17E319973EAD41147281568852158B /* lsnetchatplugin.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/lsnetchatplugin/lsnetchatplugin-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/lsnetchatplugin/lsnetchatplugin-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/lsnetchatplugin/lsnetchatplugin.modulemap";
+				PRODUCT_MODULE_NAME = lsnetchatplugin;
+				PRODUCT_NAME = lsnetchatplugin;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		A61138F34FDEA196B7E17C45338192EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 99DE0BF3AA61D01DAC17E51990122A4E /* Flutter.release.xcconfig */;
@@ -796,90 +922,7 @@
 			};
 			name = Release;
 		};
-		B1C78A4EA14E67AA1F6D63D4F6F8F8C3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CDAECCF4B5E08124ED410F09FD5A5DF9 /* Pods-Runner.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-Runner/Pods-Runner-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Runner/Pods-Runner.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		C4D08C2C5939F3941410DA76FFD4A56D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D2FA70CA298C392CB8332ADEEDD1CE85 /* Pods-Runner.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-Runner/Pods-Runner-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Runner/Pods-Runner.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		D865F451DBED2657D8C1644047E1D987 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 891BA681DAC8C389CDDA847C116AF249 /* Flutter.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		E1BA257DBB5605BD3853ED1E0DF34C46 /* Profile */ = {
+		A68CC924A7E2E315DD76045A51E4E1B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D6A24488DE8E0C02A8D7606B60CFF72F /* lsnetchatplugin.release.xcconfig */;
 			buildSettings = {
@@ -909,27 +952,114 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
+			name = Release;
+		};
+		AA646A7962FD7E4C3F06635E4E227F1E /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 167F1E5A155A90F6D091BB034814E7C0 /* Pods-Runner.profile.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-Runner/Pods-Runner-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Runner/Pods-Runner.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
 			name = Profile;
+		};
+		B2325CB6F38C0F6EF89E929AC1CC725C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CF888121876FAA72F40641BDA524420 /* NIMSDK.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CCE20528799FA2FC59101E1FC2C117C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3038D58B1D3F2FDA1398C12BCF14D248 /* Pods-Runner.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-Runner/Pods-Runner-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Runner/Pods-Runner.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D865F451DBED2657D8C1644047E1D987 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 891BA681DAC8C389CDDA847C116AF249 /* Flutter.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0706D1F6CBB59C4386E3E6A7184D965A /* Build configuration list for PBXNativeTarget "Pods-Runner" */ = {
+		3BEAFE2729B6C10E3EB20D1FDCDEDE06 /* Build configuration list for PBXNativeTarget "Pods-Runner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B1C78A4EA14E67AA1F6D63D4F6F8F8C3 /* Debug */,
-				3EEBF9700A7FB8B073FF8F1D0F0CB263 /* Profile */,
-				C4D08C2C5939F3941410DA76FFD4A56D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		10A65FB0980A2805D01F5FFDBB9CD3BE /* Build configuration list for PBXNativeTarget "lsnetchatplugin" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				29B2EB16E82D06F5C0A66A064CAB1122 /* Debug */,
-				E1BA257DBB5605BD3853ED1E0DF34C46 /* Profile */,
-				16DAD2F61B56866028244181F4576594 /* Release */,
+				CCE20528799FA2FC59101E1FC2C117C8 /* Debug */,
+				AA646A7962FD7E4C3F06635E4E227F1E /* Profile */,
+				7C37D3A190FB14640ADA8E25387CF89E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -940,6 +1070,26 @@
 				7EF7227D9B20A1D549000096ACCB23D7 /* Debug */,
 				6DB88287FBF0DDC642169D4FE56485F2 /* Profile */,
 				4BE66A09A74FD25164AAB3C2645B9B93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5303BF910C53535CA99AC0177E499D15 /* Build configuration list for PBXNativeTarget "lsnetchatplugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FAF80E996A5BD1A96DA83B1EFF7DA02 /* Debug */,
+				121C1B78D5F7A9B33975C51FA7AA081B /* Profile */,
+				A68CC924A7E2E315DD76045A51E4E1B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5DBFCCEA92B211BB2AD5A918CA329540 /* Build configuration list for PBXAggregateTarget "NIMSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2325CB6F38C0F6EF89E929AC1CC725C /* Debug */,
+				510BBA4689715B4152BB226CE9CC9018 /* Profile */,
+				0BF027181E435B2241787FE1835B5423 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
