@@ -11,6 +11,7 @@
 #endif
 @implementation GeneratedPluginRegistrant
 
+
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [LsnetchatpluginPlugin registerWithRegistrar:[registry registrarForPlugin:@"LsnetchatpluginPlugin"]];
 }
