@@ -1,8 +1,8 @@
 CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/lsnetchatplugin
 DEFINES_MODULE = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/../Flutter"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/../Flutter" "${PODS_ROOT}/NIMSDK/NIMAVChat" "${PODS_ROOT}/NIMSDK/NIMSDK"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-OTHER_LDFLAGS = $(inherited) -framework "Flutter"
+OTHER_LDFLAGS = $(inherited) -framework "AVFoundation" -framework "AudioToolbox" -framework "CoreMedia" -framework "CoreTelephony" -framework "Flutter" -framework "NIMAVChat" -framework "NIMSDK" -framework "NMC" -framework "NMCBasicModuleFramework" -framework "SystemConfiguration" -framework "VideoToolbox"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

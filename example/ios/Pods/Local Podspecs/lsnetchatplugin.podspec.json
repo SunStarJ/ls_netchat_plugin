@@ -17,6 +17,9 @@
   "dependencies": {
     "Flutter": [
 
+    ],
+    "NIMSDK": [
+
     ]
   },
   "platforms": {

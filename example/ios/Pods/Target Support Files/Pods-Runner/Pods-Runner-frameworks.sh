@@ -198,14 +198,26 @@ fi
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_ROOT}/../Flutter/Flutter.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMSDK/NIMSDK.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMAVChat/NIMAVChat.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMAVChat/NMC.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMAVChat/NMCBasicModuleFramework.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/lsnetchatplugin/lsnetchatplugin.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${PODS_ROOT}/../Flutter/Flutter.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMSDK/NIMSDK.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMAVChat/NIMAVChat.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMAVChat/NMC.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMAVChat/NMCBasicModuleFramework.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/lsnetchatplugin/lsnetchatplugin.framework"
 fi
 if [[ "$CONFIGURATION" == "Profile" ]]; then
   install_framework "${PODS_ROOT}/../Flutter/Flutter.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMSDK/NIMSDK.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMAVChat/NIMAVChat.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMAVChat/NMC.framework"
+  install_framework "${PODS_ROOT}/NIMSDK/NIMAVChat/NMCBasicModuleFramework.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/lsnetchatplugin/lsnetchatplugin.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
