@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Environment
 import android.os.Message
 import android.text.TextUtils
+import android.util.Log
 import androidx.annotation.NonNull
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
@@ -21,10 +22,6 @@ import io.flutter.plugin.common.MethodChannel
 import java.io.IOException
 
 object LsChatUtil {
-    ///初始化网易云信
-    fun initChat(mContext: Context?) {
-        NIMClient.init(mContext, null, buildOptions(mContext))
-    }
 
 
     ///获取聊天室详情
@@ -90,10 +87,11 @@ object LsChatUtil {
         val info = LoginInfo(account, token)
         NIMClient.getService(AuthService::class.java).login(info).setCallback(object : RequestCallback<LoginInfo> {
             override fun onSuccess(param: LoginInfo?) {
-
+                Log.d("info",param.toString())
             }
 
             override fun onFailed(code: Int) {
+                Log.d("onFailed",code.toString())
             }
 
             override fun onException(exception: Throwable?) {
@@ -107,9 +105,12 @@ object LsChatUtil {
     }
 
 
-    private fun buildOptions(mContext: Context?): SDKOptions? {
+    private fun buildOptions(mContext: Context?,appKey:String): SDKOptions? {
         var options = SDKOptions()
-        options?.sdkStorageRootPath = getAppCacheDir(mContext)
+        options?.run {
+            sdkStorageRootPath = getAppCacheDir(mContext)
+            this.appKey = appKey
+        }
         return options
     }
 

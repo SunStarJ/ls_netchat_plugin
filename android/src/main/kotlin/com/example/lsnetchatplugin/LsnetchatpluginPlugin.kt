@@ -37,8 +37,9 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         val channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "lsnetchatplugin")
-        channel.setMethodCallHandler(LsnetchatpluginPlugin())
-        eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "lsnetchatplugin")
+        channel.setMethodCallHandler(this)
+        mContext = flutterPluginBinding.applicationContext
+        eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "lsnetchatplugin_e")
         eventChannel?.setStreamHandler(object : EventChannel.StreamHandler {
             override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
                 streamEvents = events
@@ -67,7 +68,7 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
         fun registerWith(registrar: Registrar) {
             val channel = MethodChannel(registrar.messenger(), "lsnetchatplugin")
             mContext = registrar.activity().applicationContext
-            eventChannel = EventChannel(registrar.messenger(), "lsnetchatplugin")
+            eventChannel = EventChannel(registrar.messenger(), "lsnetchatplugin_e")
             channel.setMethodCallHandler(LsnetchatpluginPlugin())
             eventChannel?.setStreamHandler(object : EventChannel.StreamHandler {
                 override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
@@ -83,7 +84,7 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
-            "initChatUtil" -> LsChatUtil.initChat(mContext)
+//            "initChatUtil" -> LsChatUtil.initChat(mContext,call.argument<String>("appKey")!!)
             "login" -> {
                 LsChatUtil.login(call.argument<String>("account")!!, call.argument<String>("token")!!, result)
             }
