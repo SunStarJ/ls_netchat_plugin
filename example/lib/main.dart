@@ -12,13 +12,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _userData = '';
 
   @override
   void initState() {
     super.initState();
 //    Lsnetchatplugin.initChatUtil("0267466fd2eca06140a495685764048d");
-    Lsnetchatplugin.login("test", "360b18577569a2c15d8b84dd9bc54fe7");
     initPlatformState();
   }
 
@@ -36,10 +35,6 @@ class _MyAppState extends State<MyApp> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override
@@ -50,7 +45,34 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text("用户：$_userData"),
+              MaterialButton(
+                onPressed: () {
+                  Lsnetchatplugin.login(
+                          "test", "360b18577569a2c15d8b84dd9bc54fe7")
+                      .then((data) {
+                    setState(() {
+                      _userData = data;
+                    });
+                  });
+                },
+                child: Text("登陆"),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  Lsnetchatplugin.logout().whenComplete(() {
+                    setState(() {
+                      _userData = "";
+                    });
+                  });
+                },
+                child: Text("退出登陆"),
+              ),
+            ],
+          ),
         ),
       ),
     );

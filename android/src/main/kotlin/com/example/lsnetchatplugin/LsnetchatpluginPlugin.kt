@@ -88,7 +88,7 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
             "login" -> {
                 LsChatUtil.login(call.argument<String>("account")!!, call.argument<String>("token")!!, result)
             }
-            "logout" -> LsChatUtil.logOut()
+            "logout" -> LsChatUtil.logOut(result)
             "enterChatRoom" -> {
                 LsChatUtil.enterChatRoom(call.argument<String>("roomId")!!, result)
             }

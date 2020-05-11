@@ -6,6 +6,7 @@ import android.os.Message
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.NonNull
+import com.google.gson.Gson
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
 import com.netease.nimlib.sdk.RequestCallback
@@ -88,6 +89,7 @@ object LsChatUtil {
         NIMClient.getService(AuthService::class.java).login(info).setCallback(object : RequestCallback<LoginInfo> {
             override fun onSuccess(param: LoginInfo?) {
                 Log.d("info",param.toString())
+                result.success(Gson().toJson(param))
             }
 
             override fun onFailed(code: Int) {
@@ -100,8 +102,9 @@ object LsChatUtil {
     }
 
     ///退出登陆
-    fun logOut(){
+    fun logOut(result: MethodChannel.Result){
         NIMClient.getService(AuthService::class.java).logout()
+        result.success("");
     }
 
 
