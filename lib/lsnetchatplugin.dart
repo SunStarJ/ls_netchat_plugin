@@ -14,8 +14,12 @@ class Lsnetchatplugin {
   }
 
   ///登陆
-  static Future login(String account, String token) =>
+  static Future<String> login(String account, String token) =>
       _channel.invokeMethod("login", {"account": account, "token": token});
+
+  ///退出登陆
+  static Future<String> logout() =>
+      _channel.invokeMethod("logout");
 
   ///进入聊天室
   static Future enterChatRoom(String roomId) =>

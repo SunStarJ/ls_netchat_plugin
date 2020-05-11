@@ -1,0 +1,344 @@
+Index: example/android/app/src/main/res/values/string.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example/android/app/src/main/res/values/string.xml	(date 1589183102945)
++++ example/android/app/src/main/res/values/string.xml	(date 1589183102945)
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="label_name" >ls_chat</string>
++</resources>
+\ No newline at end of file
+Index: android/src/main/kotlin/com/example/lsnetchatplugin/LsChatUtil.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- android/src/main/kotlin/com/example/lsnetchatplugin/LsChatUtil.kt	(revision c383835a2ef2003a0d7ccecb99fc02454dd16205)
++++ android/src/main/kotlin/com/example/lsnetchatplugin/LsChatUtil.kt	(date 1589186368669)
+@@ -4,6 +4,7 @@
+ import android.os.Environment
+ import android.os.Message
+ import android.text.TextUtils
++import android.util.Log
+ import androidx.annotation.NonNull
+ import com.netease.nimlib.sdk.NIMClient
+ import com.netease.nimlib.sdk.Observer
+@@ -21,10 +22,6 @@
+ import java.io.IOException
+ 
+ object LsChatUtil {
+-    ///初始化网易云信
+-    fun initChat(mContext: Context?) {
+-        NIMClient.init(mContext, null, buildOptions(mContext))
+-    }
+ 
+ 
+     ///获取聊天室详情
+@@ -90,10 +87,11 @@
+         val info = LoginInfo(account, token)
+         NIMClient.getService(AuthService::class.java).login(info).setCallback(object : RequestCallback<LoginInfo> {
+             override fun onSuccess(param: LoginInfo?) {
+-
++                Log.d("info",param.toString())
+             }
+ 
+             override fun onFailed(code: Int) {
++                Log.d("onFailed",code.toString())
+             }
+ 
+             override fun onException(exception: Throwable?) {
+@@ -107,9 +105,12 @@
+     }
+ 
+ 
+-    private fun buildOptions(mContext: Context?): SDKOptions? {
++    private fun buildOptions(mContext: Context?,appKey:String): SDKOptions? {
+         var options = SDKOptions()
+-        options?.sdkStorageRootPath = getAppCacheDir(mContext)
++        options?.run {
++            sdkStorageRootPath = getAppCacheDir(mContext)
++            this.appKey = appKey
++        }
+         return options
+     }
+ 
+Index: example/lib/main.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example/lib/main.dart	(revision c383835a2ef2003a0d7ccecb99fc02454dd16205)
++++ example/lib/main.dart	(date 1589186306803)
+@@ -17,6 +17,8 @@
+   @override
+   void initState() {
+     super.initState();
++//    Lsnetchatplugin.initChatUtil("0267466fd2eca06140a495685764048d");
++    Lsnetchatplugin.login("test", "360b18577569a2c15d8b84dd9bc54fe7");
+     initPlatformState();
+   }
+ 
+Index: example/android/app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example/android/app/build.gradle	(revision c383835a2ef2003a0d7ccecb99fc02454dd16205)
++++ example/android/app/build.gradle	(date 1589177964993)
+@@ -39,7 +39,7 @@
+     defaultConfig {
+         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+         applicationId "com.example.lsnetchatplugin_example"
+-        minSdkVersion 16
++        minSdkVersion 21
+         targetSdkVersion 28
+         versionCode flutterVersionCode.toInteger()
+         versionName flutterVersionName
+Index: example/android/app/src/main/kotlin/com/example/lsnetchatplugin_example/EApplication.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example/android/app/src/main/kotlin/com/example/lsnetchatplugin_example/EApplication.kt	(date 1589184284877)
++++ example/android/app/src/main/kotlin/com/example/lsnetchatplugin_example/EApplication.kt	(date 1589184284877)
+@@ -0,0 +1,7 @@
++package com.example.lsnetchatplugin_example
++
++import com.example.lsnetchatplugin.NetChatApplication
++
++class EApplication :NetChatApplication(){
++    override fun initApplicationKey(): String ="0267466fd2eca06140a495685764048d"
++}
+\ No newline at end of file
+Index: android/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- android/src/main/AndroidManifest.xml	(revision c383835a2ef2003a0d7ccecb99fc02454dd16205)
++++ android/src/main/AndroidManifest.xml	(date 1589183441483)
+@@ -1,3 +1,6 @@
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-  package="com.example.lsnetchatplugin">
++    package="com.example.lsnetchatplugin">
++
++
++
+ </manifest>
+Index: lib/lsnetchatplugin.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/lsnetchatplugin.dart	(revision c383835a2ef2003a0d7ccecb99fc02454dd16205)
++++ lib/lsnetchatplugin.dart	(date 1589182115323)
+@@ -6,30 +6,30 @@
+ class Lsnetchatplugin {
+   static const MethodChannel _channel = const MethodChannel('lsnetchatplugin');
+   static const EventChannel _eventChannel =
+-      const EventChannel('lsnetchatplugin');
+-  ValueChanged<String> messageListener;
++      const EventChannel('lsnetchatplugin_e');
++  static ValueChanged<String> messageListener;
+   ///初始化聊天工具
+-  initChatUtil() {
+-    _channel.invokeMethod("initChatUtil");
++  static initChatUtil(String appKey) {
++    _channel.invokeMethod("initChatUtil",{"appKey":appKey});
+   }
+ 
+   ///登陆
+-  Future login(String account, String token) =>
++  static Future login(String account, String token) =>
+       _channel.invokeMethod("login", {"account": account, "token": token});
+ 
+   ///进入聊天室
+-  Future enterChatRoom(String roomId) =>
++  static Future enterChatRoom(String roomId) =>
+       _channel.invokeMethod("enterChatRoom", {"roomId": roomId});
+ 
+   ///退出聊天室
+-  Future exitChatRoom(String roomId)=>_channel.invokeMethod("exitChatRoom",{"roomId": roomId});
++  static Future exitChatRoom(String roomId)=>_channel.invokeMethod("exitChatRoom",{"roomId": roomId});
+ 
+   ///发送文字消息
+-  Future sendTextMessage(String message)=>_channel.invokeMethod("sendTextMessage",{"message":message});
++  static Future sendTextMessage(String message)=>_channel.invokeMethod("sendTextMessage",{"message":message});
+ 
+   ///添加会话消息监听
+-  Future addListener(ValueChanged<String> messageListener) async{
+-    this.messageListener = messageListener;
++  static Future addListener(ValueChanged<String> messageListener) async{
++    messageListener = messageListener;
+     _eventChannel.receiveBroadcastStream().listen((data){
+       messageListener?.call(data);
+     });
+@@ -37,13 +37,13 @@
+   }
+ 
+   ///移除监听
+-  Future removeListener() async {
+-    this.messageListener = null;
++  static Future removeListener() async {
++    messageListener = null;
+     await _channel.invokeMethod("removeMessageListener");
+   }
+ 
+   ///获取房间信息
+-  Future getRoomInfo(String message)=> _channel.invokeMethod("roomInfo",{"message":message});
++  static Future getRoomInfo(String message)=> _channel.invokeMethod("roomInfo",{"message":message});
+ 
+   static Future<String> get platformVersion async {
+     final String version = await _channel.invokeMethod('getPlatformVersion');
+Index: android/src/main/kotlin/com/example/lsnetchatplugin/NetChatApplication.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- android/src/main/kotlin/com/example/lsnetchatplugin/NetChatApplication.kt	(date 1589184139000)
++++ android/src/main/kotlin/com/example/lsnetchatplugin/NetChatApplication.kt	(date 1589184139000)
+@@ -0,0 +1,23 @@
++package com.example.lsnetchatplugin
++
++import com.example.lsnetchatplugin.LsnetchatpluginPlugin.Companion.mContext
++import com.netease.nimlib.sdk.NIMClient
++import com.netease.nimlib.sdk.SDKOptions
++import io.flutter.app.FlutterApplication
++
++abstract class NetChatApplication : FlutterApplication() {
++    override fun onCreate() {
++        super.onCreate()
++        NIMClient.init(applicationContext, null, buildOptions(initApplicationKey()))
++    }
++
++    private fun buildOptions(appk:String): SDKOptions {
++        val options = SDKOptions();
++        options.run {
++            appKey = appk
++        }
++        return  options
++    }
++
++    abstract fun initApplicationKey(): String
++}
+\ No newline at end of file
+Index: example/android/app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- example/android/app/src/main/AndroidManifest.xml	(revision c383835a2ef2003a0d7ccecb99fc02454dd16205)
++++ example/android/app/src/main/AndroidManifest.xml	(date 1589186263739)
+@@ -1,13 +1,57 @@
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
+     package="com.example.lsnetchatplugin_example">
+     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
+          calls FlutterMain.startInitialization(this); in its onCreate method.
+          In most cases you can leave this as-is, but you if you want to provide
+          additional functionality it is fine to subclass or reimplement
+          FlutterApplication and put your custom class here. -->
++
++
++    <!-- 权限声明 -->
++    <!-- 访问网络状态-->
++    <uses-permission android:name="android.permission.INTERNET" />
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
++    <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
++    <uses-permission android:name="android.permission.FLASHLIGHT" />
++    <uses-permission android:name="android.permission.VIBRATE" />
++    <!-- 外置存储存取权限 -->
++    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
++    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
++
++    <!-- 8.0 系统需要-->
++    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
++
++    <!-- 多媒体相关 -->
++    <uses-permission android:name="android.permission.CAMERA" />
++    <uses-permission android:name="android.permission.RECORD_AUDIO" />
++    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
++
++    <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
++    <uses-permission android:name="android.permission.BLUETOOTH" />
++    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
++    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
++    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
++    <uses-permission android:name="android.permission.WAKE_LOCK" />
++
++    <uses-feature android:name="android.hardware.camera" />
++    <uses-feature android:name="android.hardware.camera.autofocus" />
++    <uses-feature
++        android:glEsVersion="0x00020000"
++        android:required="true" />
++
++    <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
++    <!-- 和下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
++    <permission
++        android:name="com.netease.nim.demo.permission.RECEIVE_MSG"
++        android:protectionLevel="signature" />
++    <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
++    <uses-permission android:name="com.example.lsnetchatplugin.permission.RECEIVE_MSG" />
++
+     <application
+-        android:name="io.flutter.app.FlutterApplication"
+-        android:label="lsnetchatplugin_example"
++        android:name=".EApplication"
++        android:label="@string/label_name"
+         android:icon="@mipmap/ic_launcher">
+         <activity
+             android:name=".MainActivity"
+Index: android/src/main/kotlin/com/example/lsnetchatplugin/LsnetchatpluginPlugin.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- android/src/main/kotlin/com/example/lsnetchatplugin/LsnetchatpluginPlugin.kt	(revision c383835a2ef2003a0d7ccecb99fc02454dd16205)
++++ android/src/main/kotlin/com/example/lsnetchatplugin/LsnetchatpluginPlugin.kt	(date 1589184328976)
+@@ -37,8 +37,9 @@
+ 
+     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+         val channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "lsnetchatplugin")
+-        channel.setMethodCallHandler(LsnetchatpluginPlugin())
+-        eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "lsnetchatplugin")
++        channel.setMethodCallHandler(this)
++        mContext = flutterPluginBinding.applicationContext
++        eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "lsnetchatplugin_e")
+         eventChannel?.setStreamHandler(object : EventChannel.StreamHandler {
+             override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+                 streamEvents = events
+@@ -67,7 +68,7 @@
+         fun registerWith(registrar: Registrar) {
+             val channel = MethodChannel(registrar.messenger(), "lsnetchatplugin")
+             mContext = registrar.activity().applicationContext
+-            eventChannel = EventChannel(registrar.messenger(), "lsnetchatplugin")
++            eventChannel = EventChannel(registrar.messenger(), "lsnetchatplugin_e")
+             channel.setMethodCallHandler(LsnetchatpluginPlugin())
+             eventChannel?.setStreamHandler(object : EventChannel.StreamHandler {
+                 override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+@@ -83,7 +84,7 @@
+ 
+     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+         when (call.method) {
+-            "initChatUtil" -> LsChatUtil.initChat(mContext)
++//            "initChatUtil" -> LsChatUtil.initChat(mContext,call.argument<String>("appKey")!!)
+             "login" -> {
+                 LsChatUtil.login(call.argument<String>("account")!!, call.argument<String>("token")!!, result)
+             }
+Index: android/src/main/res/values/string.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- android/src/main/res/values/string.xml	(date 1589183102945)
++++ android/src/main/res/values/string.xml	(date 1589183102945)
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="label_name" >ls_chat</string>
++</resources>
+\ No newline at end of file
