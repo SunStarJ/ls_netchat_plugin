@@ -17,6 +17,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+//    Lsnetchatplugin.initChatUtil("0267466fd2eca06140a495685764048d");
+    Lsnetchatplugin.login("test", "360b18577569a2c15d8b84dd9bc54fe7");
     initPlatformState();
   }
 
