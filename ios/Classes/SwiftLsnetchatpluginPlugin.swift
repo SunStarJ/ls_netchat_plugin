@@ -41,7 +41,9 @@ public class SwiftLsnetchatpluginPlugin: NSObject, FlutterPlugin {
             NIMSDKManager.shareInstance.removeChatObsever()
         break;
         case "roomInfo":
-           // NIMSDKManager.shareInstance
+            NIMSDKManager.shareInstance.getChatRoomInfo(withRoomId: "") { (chatRoom) in
+                
+            }
         break;
 
     default:

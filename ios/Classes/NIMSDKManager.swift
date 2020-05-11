@@ -74,9 +74,9 @@ class NIMSDKManager: NSObject{
         }
     }
     
-    func getChatRoomInfo(withRoomId roomid: String){
+    func getChatRoomInfo(withRoomId roomid: String,callBack:@escaping ((_ chatRoomInfo: NIMChatroom?)->Void)){
         NIMSDK.shared().chatroomManager.fetchChatroomInfo(roomid) { (error, chatRoom) in
-            
+            callBack(chatRoom)
         }
     }
     
