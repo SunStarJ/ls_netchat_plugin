@@ -40,6 +40,7 @@
 		C105F04BFBD5D3D9FCED0E78E56C1BC0 /* Pods-Runner-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F3FD89A3C35F3ED2DDAE100615C517D1 /* Pods-Runner-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB22D46E5299B1B4B4B3B9B15B9C190D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		D173E653246B95AD00477AA4 /* LMChatRoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D173E652246B95AD00477AA4 /* LMChatRoomManager.swift */; };
+		D173E657246BD90900477AA4 /* LMBaseFlutterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D173E656246BD90900477AA4 /* LMBaseFlutterManager.swift */; };
 		D856B6D591B7F2494883645D6927F5FE /* lsnetchatplugin-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D873C3CA33DDF4E1CC9DC9482C4DD650 /* lsnetchatplugin-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8B44A7261E1D2B425C28FAA7A8139B2 /* MessageListenerChannelSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E5D6BE83A47DF00429B94B9EF04FC0 /* MessageListenerChannelSupport.swift */; };
 /* End PBXBuildFile section */
@@ -118,6 +119,7 @@
 		C7939B277753A90B7D85D7F8476FB02F /* Pods-Runner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Runner.modulemap"; sourceTree = "<group>"; };
 		C973C77489D5775AFFC8D459835288D1 /* NMC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NMC.framework; path = NIMAVChat/NMC.framework; sourceTree = "<group>"; };
 		D173E652246B95AD00477AA4 /* LMChatRoomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LMChatRoomManager.swift; path = ../../../../../../../ios/Classes/LMChatRoomManager.swift; sourceTree = "<group>"; };
+		D173E656246BD90900477AA4 /* LMBaseFlutterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LMBaseFlutterManager.swift; path = ../../../../../../../ios/Classes/LMBaseFlutterManager.swift; sourceTree = "<group>"; };
 		D6A24488DE8E0C02A8D7606B60CFF72F /* lsnetchatplugin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = lsnetchatplugin.release.xcconfig; sourceTree = "<group>"; };
 		D873C3CA33DDF4E1CC9DC9482C4DD650 /* lsnetchatplugin-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "lsnetchatplugin-umbrella.h"; sourceTree = "<group>"; };
 		D8BAA6B597BDE2D7B7F182E61A408693 /* lsnetchatplugin-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "lsnetchatplugin-dummy.m"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				89F970776832DD41C7519F3BACF9F27E /* NIMSDKManager.swift */,
 				D173E652246B95AD00477AA4 /* LMChatRoomManager.swift */,
 				C3EDFCDBEAF705C73CBEDE4E2BA00D3B /* SwiftLsnetchatpluginPlugin.swift */,
+				D173E656246BD90900477AA4 /* LMBaseFlutterManager.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				928811486171ADB09FF16725BDD1E351 /* lsnetchatplugin-dummy.m in Sources */,
+				D173E657246BD90900477AA4 /* LMBaseFlutterManager.swift in Sources */,
 				D173E653246B95AD00477AA4 /* LMChatRoomManager.swift in Sources */,
 				7BE97026044908FB4FE8C854168623AC /* LsnetchatpluginPlugin.m in Sources */,
 				D8B44A7261E1D2B425C28FAA7A8139B2 /* MessageListenerChannelSupport.swift in Sources */,

@@ -13,7 +13,7 @@ class LMChatRoomManager: NSObject {
     static let shareInstance = LMChatRoomManager();
     
     //加入聊天室
-    func joinChatRoom(withRoomId roomid: String){
+    func joinChatRoom(withRoomId roomid: String,result: @escaping FlutterResult){
         
         let request = NIMChatroomEnterRequest();
         request.roomId = roomid;
@@ -26,12 +26,13 @@ class LMChatRoomManager: NSObject {
     }
     
     //退出聊天室
-    func exitChatRoom(withRoomId roomid: String){
+    func exitChatRoom(withRoomId roomid: String,result: @escaping FlutterResult){
         NIMSDK.shared().chatroomManager.exitChatroom(roomid) { (error) in
             self.LMLogError(des: "退出聊天室", error: error);
              self.removeChatRoomManagerObsever();
         }
     }
+    
     //获取聊天室信息
     func getChatRoomInfo(withRoomId roomid: String,callBack:@escaping ((_ chatRoomInfo: NIMChatroom?)->Void)){
         NIMSDK.shared().chatroomManager.fetchChatroomInfo(roomid) { (error, chatRoom) in

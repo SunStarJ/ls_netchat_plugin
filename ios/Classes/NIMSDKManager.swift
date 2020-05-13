@@ -8,32 +8,33 @@
 import UIKit
 import NIMSDK
 
-class NIMSDKManager: NSObject{
-    
-    let appKey = "0267466fd2eca06140a495685764048d";
+class NIMSDKManager: LMBaseFlutterManager{
+
+    //let appKey = "0267466fd2eca06140a495685764048d";
     
     static let shareInstance = NIMSDKManager();
     
     override init() {
         super.init();
-        initIM();
+        
+        
     }
     
-    func login(withAccount account: String,token: String){
+    func login(withAccount account: String,token: String,result: @escaping FlutterResult){
+        
         //2.手动登录
         NIMSDK.shared().loginManager.login(account, token: token) { [weak self] (error) in
             self?.LMLogError(des: "手动登陆", error: error)
             //登陆成功后添加消息监听
             self?.addChatObsever()
-            
         }
         //自动登录
         //NIMSDK.shared().loginManager.autoLogin("", token: "")
     }
     
     //登出IM
-    func logoutIM(){
-        
+    func logoutIM(result: @escaping FlutterResult){
+    
         NIMSDK.shared().loginManager.logout {[weak self] (error) in
             
             if let e = error{
@@ -47,7 +48,7 @@ class NIMSDKManager: NSObject{
     
     
     //初始化sdk
-    func initIM(){
+    func initIM(appKey: String){
         //sdk配置
         let regisOption = NIMSDKOption(appKey: appKey)
         //1.sdk初始化
@@ -66,7 +67,7 @@ class NIMSDKManager: NSObject{
 
     
     //发送一条文本消息
-    func sendATextMessage(text: String,sessionId: String){
+    func sendATextMessage(text: String,sessionId: String,result: @escaping FlutterResult){
         
        let session = NIMSession(sessionId, type: NIMSessionType.chatroom);
         let textMsg = NIMMessage();
@@ -122,6 +123,7 @@ extension NIMSDKManager: NIMLoginManagerDelegate{
         default:
             break;
         }
+        
     }
     
     func onAutoLoginFailed(_ error: Error) {
