@@ -8,9 +8,10 @@ public class SwiftLsnetchatpluginPlugin: NSObject, FlutterPlugin {
     let instance = SwiftLsnetchatpluginPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
     
+    //消息监听
+    MessageListenerChannelSupport.register(with: registrar)
     
-    
-    print("Bundle.main.bundleIdentifier is \(Bundle.main.bundleIdentifier)")
+//    print("Bundle.main.bundleIdentifier is \(Bundle.main.bundleIdentifier)")
     
   }
 

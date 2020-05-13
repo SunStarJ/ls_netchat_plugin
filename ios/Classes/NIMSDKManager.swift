@@ -27,7 +27,6 @@ class NIMSDKManager: NSObject{
         NIMSDK.shared().loginManager.login(account, token: token) { [weak self] (error) in
             self?.LMLogError(des: "手动登陆", error: error)
         }
-        
         //自动登录
         //NIMSDK.shared().loginManager.autoLogin("", token: "")
     }
@@ -148,6 +147,8 @@ extension NIMSDKManager: NIMChatManagerDelegate{
     
     //收到消息回调
     func onRecvMessages(_ messages: [NIMMessage]) {
+        
+        MessageListenerChannelSupport.sharedInstance.eventChannelToFlutter(messages: messages)
         
     }
     

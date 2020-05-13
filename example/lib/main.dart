@@ -17,8 +17,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-//    Lsnetchatplugin.initChatUtil("0267466fd2eca06140a495685764048d");
+    Lsnetchatplugin.initChatUtil("0267466fd2eca06140a495685764048d");
     initPlatformState();
+
+
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -51,6 +53,13 @@ class _MyAppState extends State<MyApp> {
               Text("用户：$_userData"),
               MaterialButton(
                 onPressed: () {
+
+                  Lsnetchatplugin.addListener((name){
+
+                    print(name);
+
+                  });
+
                   Lsnetchatplugin.login(
                           "test", "360b18577569a2c15d8b84dd9bc54fe7")
                       .then((data) {
