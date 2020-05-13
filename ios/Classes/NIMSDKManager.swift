@@ -15,20 +15,34 @@ class NIMSDKManager: NSObject{
     static let shareInstance = NIMSDKManager();
     
     override init() {
-        
         super.init();
-        
         initIM();
-        
     }
     
     func login(withAccount account: String,token: String){
         //2.手动登录
         NIMSDK.shared().loginManager.login(account, token: token) { [weak self] (error) in
             self?.LMLogError(des: "手动登陆", error: error)
+            //登陆成功后添加消息监听
+            self?.addChatObsever()
+            
         }
         //自动登录
         //NIMSDK.shared().loginManager.autoLogin("", token: "")
+    }
+    
+    //登出IM
+    func logoutIM(){
+        
+        NIMSDK.shared().loginManager.logout {[weak self] (error) in
+            
+            if let e = error{
+                print("LM_登出:\(e)")
+            }
+            //退出登录后移除消息监听
+            self?.addChatObsever()
+            
+        }
     }
     
     
@@ -38,48 +52,7 @@ class NIMSDKManager: NSObject{
         let regisOption = NIMSDKOption(appKey: appKey)
         //1.sdk初始化
         NIMSDK.shared().register(with: regisOption)
-    
-        NIMSDK.shared().chatroomManager.add(self)
-        
-    
     }
-    
-    //加入聊天室
-    func joinChatRoom(withRoomId roomid: String){
-        
-        //添加聊天室监听
-        NIMSDK.shared().chatroomManager.add(self);
-        
-        
-        let request = NIMChatroomEnterRequest();
-        request.roomId = roomid;
-        
-        NIMSDK.shared().chatroomManager.enterChatroom(request) { (error, chatRoom, member) in
-            
-            print("进入聊天室：\(String(describing: error)),\(chatRoom),\(member)");
-            
-        }
-        
-    }
-    
-    //退出聊天室
-    func exitChatRoom(withRoomId roomid: String){
-        NIMSDK.shared().chatroomManager.exitChatroom(roomid) { (error) in
-            self.LMLogError(des: "退出聊天室", error: error);
-            
-            //这里退出聊天室释放监听
-            self.removeChatObsever()
-            
-        }
-    }
-    
-    func getChatRoomInfo(withRoomId roomid: String,callBack:@escaping ((_ chatRoomInfo: NIMChatroom?)->Void)){
-        NIMSDK.shared().chatroomManager.fetchChatroomInfo(roomid) { (error, chatRoom) in
-            callBack(chatRoom)
-        }
-    }
-    
-    
     
     //添加消息监听
     func addChatObsever(){
@@ -108,19 +81,6 @@ class NIMSDKManager: NSObject{
         }
     }
     
-    
-    //登出IM
-    func logoutIM(){
-        
-        NIMSDK.shared().loginManager.logout { (error) in
-            
-            if let e = error{
-                print("LM_登出:\(e)")
-            }
-            
-        }
-    }
-    
     func LMLogError(des:String,error: Error?){
         if let e = error{
             print("LM_\(des):\(e)")
@@ -134,10 +94,38 @@ extension NIMSDKManager: NIMLoginManagerDelegate{
     
     func onLogin(_ step: NIMLoginStep) {
         
+        switch step {
+        case .linking:
+            print("正在连接服务器...")
+            break;
+        case .linkOK:
+            print("连接服务器成功")
+            break;
+        case .linkFailed:
+            print("连接服务器失败")
+            break;
+        case .logining:
+            print("登录中...")
+            break;
+        case .loginOK:
+            print("登录成功")
+            break;
+        case .loginFailed:
+            print("登录失败")
+            break;
+        case .loseConnection:
+            print("网络连接断开")
+            break;
+        case .netChanged:
+            print("网络状态切换")
+            break;
+        default:
+            break;
+        }
     }
     
     func onAutoLoginFailed(_ error: Error) {
-        
+        LMLogError(des: "自动登录", error: error)
     }
     
 }
@@ -147,29 +135,8 @@ extension NIMSDKManager: NIMChatManagerDelegate{
     
     //收到消息回调
     func onRecvMessages(_ messages: [NIMMessage]) {
-        
         MessageListenerChannelSupport.sharedInstance.eventChannelToFlutter(messages: messages)
-        
     }
     
 }
 
-//聊天室监听回调
-extension NIMSDKManager: NIMChatroomManagerDelegate{
-    
-    //被踢回调
-    func chatroomBeKicked(_ result: NIMChatroomBeKickedResult) {
-        
-    }
-    
-    //连接状态回调
-    func chatroom(_ roomId: String, connectionStateChanged state: NIMChatroomConnectionState) {
-        
-    }
-    
-    //自动登录出错回调
-    func chatroom(_ roomId: String, autoLoginFailed error: Error) {
-        
-    }
-
-}

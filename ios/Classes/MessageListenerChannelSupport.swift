@@ -32,9 +32,7 @@ class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler
     }
     
     func eventChannelToFlutter(messages: [NIMMessage]){
-        
         self.eventSink?("3333");
-        
     }
     
     
