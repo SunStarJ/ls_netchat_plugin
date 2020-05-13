@@ -20,6 +20,8 @@ class _MyAppState extends State<MyApp> {
     Lsnetchatplugin.initChatUtil("0267466fd2eca06140a495685764048d");
     initPlatformState();
 
+    print("111");
+
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
