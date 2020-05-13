@@ -32,7 +32,18 @@ class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler
     }
     
     func eventChannelToFlutter(messages: [NIMMessage]){
-        self.eventSink?("3333");
+        
+        self.eventSink?(messages[0].text ?? "");
+    }
+    
+    func LoginStatusEventChannelToFlutter(des: String){
+        
+        self.eventSink?(des);
+    }
+    
+    func ChatRoomLinkEventChannelToFlutter(des: String){
+        
+        self.eventSink?(des);
     }
     
     

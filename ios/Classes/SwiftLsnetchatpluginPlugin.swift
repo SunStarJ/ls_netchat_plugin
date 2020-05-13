@@ -38,7 +38,7 @@ public class SwiftLsnetchatpluginPlugin: NSObject, FlutterPlugin {
         break;
         case "roomInfo"://获取房间信息
             LMChatRoomManager.shareInstance.getChatRoomInfo(withRoomId: "") { (chatRoom) in
-                result("111")
+                result(chatRoom?.name)
             }
         break;
         default:

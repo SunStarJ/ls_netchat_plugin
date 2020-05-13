@@ -8,6 +8,7 @@ class Lsnetchatplugin {
   static const EventChannel _eventChannel =
       const EventChannel('lsnetchatplugin_e');
   static ValueChanged<String> messageListener;
+
   ///初始化聊天工具
   static initChatUtil(String appKey) {
     _channel.invokeMethod("initChatUtil",{"appKey":appKey});
@@ -30,6 +31,28 @@ class Lsnetchatplugin {
 
   ///发送文字消息
   static Future sendTextMessage(String message)=>_channel.invokeMethod("sendTextMessage",{"message":message});
+
+  //添加聊天室监听
+  static Future addChatRoomLinkListener() async{
+
+    _eventChannel.receiveBroadcastStream().listen((data){
+
+      //用同一个通道，针对不同的data做处理
+
+    });
+
+  }
+
+  //添加登录监听
+  static Future addLoginStatusListener() async{
+
+    _eventChannel.receiveBroadcastStream().listen((data){
+
+      //用同一个通道，针对不同的data做处理
+
+    });
+
+  }
 
   ///添加会话消息监听
   static Future addListener(ValueChanged<String> messageListener) async{

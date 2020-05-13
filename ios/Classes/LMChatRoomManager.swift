@@ -66,31 +66,40 @@ extension LMChatRoomManager: NIMChatroomManagerDelegate{
         
         print("被踢了兄得，自己走吧")
         
+        MessageListenerChannelSupport.sharedInstance.LoginStatusEventChannelToFlutter(des: "被踢了兄得，自己走吧")
     }
     
     //连接状态回调
     func chatroom(_ roomId: String, connectionStateChanged state: NIMChatroomConnectionState) {
         
+        var des = "";
+        
         switch state {
             case .entering:
                 print("正在进入聊天室...")
+                des = "正在进入聊天室...";
                 break;
             case .enterOK:
                 print("进入聊天室成功")
+                des = "进入聊天室成功";
                 break;
             case .enterFailed:
                 print("进入聊天室失败")
+                des = "进入聊天室失败";
                 break;
             case .loseConnection:
                 print("和聊天室断开")
+                des = "和聊天室断开";
                 break;
             default:
                 break;
         }
         
+        MessageListenerChannelSupport.sharedInstance.LoginStatusEventChannelToFlutter(des: des)
+        
     }
     
-    //自动登录出错回调
+    // 聊天室自动登录出错
     func chatroom(_ roomId: String, autoLoginFailed error: Error) {
         
     }

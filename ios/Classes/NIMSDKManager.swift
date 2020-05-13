@@ -17,7 +17,6 @@ class NIMSDKManager: LMBaseFlutterManager{
     override init() {
         super.init();
         
-        
     }
     
     func login(withAccount account: String,token: String,result: @escaping FlutterResult){
@@ -95,34 +94,47 @@ extension NIMSDKManager: NIMLoginManagerDelegate{
     
     func onLogin(_ step: NIMLoginStep) {
         
+        var des = "";
+        
         switch step {
         case .linking:
             print("正在连接服务器...")
+            des = "正在连接服务器..."
             break;
         case .linkOK:
             print("连接服务器成功")
+            des = "连接服务器成功"
             break;
         case .linkFailed:
             print("连接服务器失败")
+            des = "连接服务器失败"
             break;
         case .logining:
             print("登录中...")
+            des = "登录中..."
             break;
         case .loginOK:
             print("登录成功")
+            des = "登录成功"
             break;
         case .loginFailed:
             print("登录失败")
+            des = "登录失败"
             break;
         case .loseConnection:
             print("网络连接断开")
+            des = "网络连接断开"
             break;
         case .netChanged:
             print("网络状态切换")
+            des = "网络状态切换"
             break;
         default:
             break;
         }
+        
+        
+        MessageListenerChannelSupport.sharedInstance.LoginStatusEventChannelToFlutter(des: des)
         
     }
     
