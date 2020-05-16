@@ -5,10 +5,7 @@ import android.os.Environment
 import android.text.TextUtils
 import androidx.annotation.NonNull
 import com.google.gson.Gson
-import com.netease.nimlib.sdk.NIMClient
-import com.netease.nimlib.sdk.Observer
-import com.netease.nimlib.sdk.RequestCallback
-import com.netease.nimlib.sdk.SDKOptions
+import com.netease.nimlib.sdk.*
 import com.netease.nimlib.sdk.auth.AuthService
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.netease.nimlib.sdk.chatroom.ChatRoomMessageBuilder
@@ -31,9 +28,15 @@ import java.io.IOException
 /** LsnetchatpluginPlugin */
 public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
 
-    var messageListener = Observer<List<ChatRoomMessage>> {
-        streamEvents?.success(Gson().toJson(it))
+    private val messageListener = Observer<List<ChatRoomMessage>> {
+        streamEvents?.success(mapOf("type" to 0, "data" to it.map { message ->
+            mapOf("content" to message.content, "nicName" to message.chatRoomMessageExtension.senderNick)
+        }.toList()))
     }
+    private val statusListener = Observer<StatusCode> {
+        streamEvents?.success(mapOf("type" to 1, "data" to it.value))
+    }
+
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         val channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "lsnetchatplugin")
@@ -87,13 +90,14 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
 //            "initChatUtil" -> LsChatUtil.initChat(mContext,call.argument<String>("appKey")!!)
             "login" -> {
                 LsChatUtil.login(call.argument<String>("account")!!, call.argument<String>("token")!!, result)
+                LsChatUtil.addAuthStatusListener(statusListener, true)
             }
             "logout" -> LsChatUtil.logOut(result)
             "enterChatRoom" -> {
                 LsChatUtil.enterChatRoom(call.argument<String>("roomId")!!, result)
             }
             "exitChatRoom" -> LsChatUtil.exitChatRoom(call.argument<String>("roomId")!!)
-            "sendTextMessage" -> LsChatUtil.sendTextMessage(call.argument<String>("message")!!, call.argument<String>("roomId")!!, result)
+            "sendTextMessage" -> LsChatUtil.sendTextMessage(call.argument<String>("message")!!, call.argument<String>("nicName")!!, call.argument<String>("roomId")!!, result)
             "messageListener" -> {
                 LsChatUtil.addOrRemoveMessageListener(messageListener, true)
             }
@@ -102,6 +106,9 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
             }
             "roomInfo" -> {
                 LsChatUtil.getRoomInfo(call.argument<String>("roomId")!!, result)
+            }
+            "removeListener" -> {
+                LsChatUtil.addAuthStatusListener(statusListener, false)
             }
 
         }
