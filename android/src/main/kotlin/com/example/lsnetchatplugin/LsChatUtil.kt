@@ -7,17 +7,17 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.NonNull
 import com.google.gson.Gson
-import com.netease.nimlib.sdk.NIMClient
-import com.netease.nimlib.sdk.Observer
-import com.netease.nimlib.sdk.RequestCallback
-import com.netease.nimlib.sdk.SDKOptions
+import com.netease.nimlib.NimNosSceneKeyConstant
+import com.netease.nimlib.sdk.*
 import com.netease.nimlib.sdk.auth.AuthService
+import com.netease.nimlib.sdk.auth.AuthServiceObserver
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.netease.nimlib.sdk.chatroom.ChatRoomMessageBuilder
 import com.netease.nimlib.sdk.chatroom.ChatRoomService
 import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomInfo
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage
+import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessageExtension
 import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData
 import io.flutter.plugin.common.MethodChannel
 import java.io.IOException
@@ -26,7 +26,7 @@ object LsChatUtil {
 
 
     ///获取聊天室详情
-    fun getRoomInfo(roomId:String,@NonNull result: MethodChannel.Result){
+    fun getRoomInfo(roomId: String, @NonNull result: MethodChannel.Result) {
         NIMClient.getService(ChatRoomService::class.java).fetchRoomInfo(roomId).setCallback(object : RequestCallback<ChatRoomInfo> {
             override fun onSuccess(param: ChatRoomInfo?) {
 
@@ -41,19 +41,21 @@ object LsChatUtil {
     }
 
     ///添加或移除消息监听
-    fun addOrRemoveMessageListener(listener: Observer<List<ChatRoomMessage>>,isAdd:Boolean){
+    fun addOrRemoveMessageListener(listener: Observer<List<ChatRoomMessage>>, isAdd: Boolean) {
         NIMClient.getService(ChatRoomServiceObserver::class.java).observeReceiveMessage(listener, isAdd)
     }
 
     ///发送文字消息
-    fun sendTextMessage(message:String,roomId:String,@NonNull result: MethodChannel.Result){
-        val message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId,message)
+    fun sendTextMessage(message: String, nicName: String, roomId: String, @NonNull result: MethodChannel.Result) {
+        val message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, message)
+        message.chatRoomMessageExtension.senderNick = nicName
         NIMClient.getService(ChatRoomService::class.java).sendMessage(message, false).setCallback(object : RequestCallback<Void> {
             override fun onSuccess(param: Void?) {
-
+                result.success(0)
             }
 
             override fun onFailed(code: Int) {
+                result.error(code.toString(), "", "")
             }
 
             override fun onException(exception: Throwable?) {
@@ -62,12 +64,12 @@ object LsChatUtil {
     }
 
     ///退出聊天室
-    fun exitChatRoom(roomId: String){
+    fun exitChatRoom(roomId: String) {
         NIMClient.getService(ChatRoomService::class.java).exitChatRoom(roomId)
     }
 
     ///加入聊天室
-    fun  enterChatRoom(roomId:String,@NonNull result: MethodChannel.Result){
+    fun enterChatRoom(roomId: String, @NonNull result: MethodChannel.Result) {
         val chatRoom = EnterChatRoomData(roomId)
         NIMClient.getService(ChatRoomService::class.java).enterChatRoom(chatRoom).setCallback(object : RequestCallback<EnterChatRoomData> {
             override fun onSuccess(param: EnterChatRoomData?) {
@@ -88,27 +90,28 @@ object LsChatUtil {
         val info = LoginInfo(account, token)
         NIMClient.getService(AuthService::class.java).login(info).setCallback(object : RequestCallback<LoginInfo> {
             override fun onSuccess(param: LoginInfo?) {
-                Log.d("info",param.toString())
+                Log.d("info", param.toString())
                 result.success(Gson().toJson(param))
             }
 
             override fun onFailed(code: Int) {
-                Log.d("onFailed",code.toString())
+                Log.d("onFailed", code.toString())
             }
 
             override fun onException(exception: Throwable?) {
             }
         })
+
     }
 
     ///退出登陆
-    fun logOut(result: MethodChannel.Result){
+    fun logOut(result: MethodChannel.Result) {
         NIMClient.getService(AuthService::class.java).logout()
         result.success("");
     }
 
 
-    private fun buildOptions(mContext: Context?,appKey:String): SDKOptions? {
+    private fun buildOptions(mContext: Context?, appKey: String): SDKOptions? {
         var options = SDKOptions()
         options?.run {
             sdkStorageRootPath = getAppCacheDir(mContext)
@@ -135,6 +138,11 @@ object LsChatUtil {
             storageRootPath = Environment.getExternalStorageDirectory().toString() + "/" + LsnetchatpluginPlugin.mContext?.packageName
         }
         return storageRootPath
+    }
+
+    ///添加登陆状态监听
+    fun addAuthStatusListener(observer: Observer<StatusCode>,isAdd:Boolean) {
+        NIMClient.getService(AuthServiceObserver::class.java).observeOnlineStatus(observer,isAdd)
     }
 
 }
