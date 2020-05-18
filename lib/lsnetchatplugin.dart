@@ -2,21 +2,24 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:lsnetchatplugin/login_data.dart';
+import 'package:lsnetchatplugin/message_data.dart';
 
 class Lsnetchatplugin {
   static const MethodChannel _channel = const MethodChannel('lsnetchatplugin');
   static const EventChannel _eventChannel =
       const EventChannel('lsnetchatplugin_e');
-  static ValueChanged<String> messageListener;
-
+  static ValueChanged<BaseMessage> messageListener;
   ///初始化聊天工具
   static initChatUtil(String appKey) {
     _channel.invokeMethod("initChatUtil",{"appKey":appKey});
   }
 
   ///登陆
-  static Future<String> login(String account, String token) =>
-      _channel.invokeMethod("login", {"account": account, "token": token});
+  static Future<LoginData> login(String account, String token) =>
+      _channel.invokeMethod("login", {"account": account, "token": token}).then((data){
+        return LoginData()..code = data["code"]..message = data["message"];
+      });
 
   ///退出登陆
   static Future<String> logout() =>

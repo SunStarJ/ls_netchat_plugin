@@ -20,6 +20,7 @@ class _MyAppState extends State<MyApp> {
     Lsnetchatplugin.initChatUtil("8d4f15775c9cb2a2a44fca0025e4c0a0");
     initPlatformState();
 
+    print("111");
 
   }
 
@@ -54,20 +55,35 @@ class _MyAppState extends State<MyApp> {
               MaterialButton(
                 onPressed: () {
                   Lsnetchatplugin.login(
-                          "lm123456789", "12fc01e8c8627537c20381014afead2d")
+                          "test", "360b18577569a2c15d8b84dd9bc54fe7")
                       .then((data) {
                     setState(() {
                       _userData = "登录${data}";
                     });
-                  }).catchError((e){
-                    print("CCCCC-${e.code}");
                   });
                 },
                 child: Text("登陆"),
               ),
               MaterialButton(
                 onPressed: () {
+                  Lsnetchatplugin.logout().then((data) {
+                    setState(() {
+                      _userData = "登出${data}";
+                    });
+                  }).catchError((error) {
+                    print(error);
+                  });
 
+//                  Lsnetchatplugin.logout().whenComplete(() {
+//                    setState(() {
+//                      _userData = "";
+//                    });
+//                  });
+                },
+                child: Text("发送消息"),
+              ),
+              MaterialButton(
+                onPressed: () {
                   Lsnetchatplugin.logout().then((data) {
                     setState(() {
                       _userData = "登出${data}";

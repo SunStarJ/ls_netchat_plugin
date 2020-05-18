@@ -15,10 +15,10 @@ import com.netease.nimlib.sdk.auth.LoginInfo
 import com.netease.nimlib.sdk.chatroom.ChatRoomMessageBuilder
 import com.netease.nimlib.sdk.chatroom.ChatRoomService
 import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomInfo
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessageExtension
-import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData
+import com.netease.nimlib.sdk.chatroom.model.*
+import com.netease.nimlib.sdk.msg.MessageBuilder
+import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import io.flutter.plugin.common.MethodChannel
 import java.io.IOException
 
@@ -29,10 +29,14 @@ object LsChatUtil {
     fun getRoomInfo(roomId: String, @NonNull result: MethodChannel.Result) {
         NIMClient.getService(ChatRoomService::class.java).fetchRoomInfo(roomId).setCallback(object : RequestCallback<ChatRoomInfo> {
             override fun onSuccess(param: ChatRoomInfo?) {
+                param?.run {
+                    result.success(mapOf("code" to 0, "count" to onlineUserCount))
+                }
 
             }
 
             override fun onFailed(code: Int) {
+                result.success(mapOf("code" to code))
             }
 
             override fun onException(exception: Throwable?) {
@@ -51,7 +55,40 @@ object LsChatUtil {
         message.chatRoomMessageExtension.senderNick = nicName
         NIMClient.getService(ChatRoomService::class.java).sendMessage(message, false).setCallback(object : RequestCallback<Void> {
             override fun onSuccess(param: Void?) {
-                result.success(0)
+                result.success(mapOf("code" to 0,"message" to "发送成功"))
+            }
+
+            override fun onFailed(code: Int) {
+                result.success(mapOf("code" to code,"message" to "发送失败"))
+            }
+
+            override fun onException(exception: Throwable?) {
+            }
+        })
+    }
+
+    ///退出聊天室
+    fun exitChatRoom(roomId: String, @NonNull result: MethodChannel.Result) {
+        NIMClient.getService(ChatRoomService::class.java).exitChatRoom(roomId)
+        result.success(mapOf("code" to 0, "message" to "退出成功"))
+    }
+
+    ///加入聊天室
+    fun enterChatRoom(roomId: String, @NonNull result: MethodChannel.Result) {
+        if (NIMClient.getStatus() == StatusCode.LOGINED) {
+            enterWithLog(roomId, result)
+        } else {
+            enterWithOutLog(roomId, result)
+        }
+
+    }
+
+    ///独立进入聊天室
+    private fun enterWithOutLog(roomId: String, result: MethodChannel.Result) {
+        val chatRoom = EnterChatRoomData(roomId)
+        NIMClient.getService(ChatRoomService::class.java).enterChatRoomEx(chatRoom, 1).setCallback(object : RequestCallback<EnterChatRoomData> {
+            override fun onSuccess(param: EnterChatRoomData?) {
+//                result.success(mapOf("type" to ))
             }
 
             override fun onFailed(code: Int) {
@@ -63,21 +100,16 @@ object LsChatUtil {
         })
     }
 
-    ///退出聊天室
-    fun exitChatRoom(roomId: String) {
-        NIMClient.getService(ChatRoomService::class.java).exitChatRoom(roomId)
-    }
-
-    ///加入聊天室
-    fun enterChatRoom(roomId: String, @NonNull result: MethodChannel.Result) {
+    ///非独立进入聊天室
+    private fun enterWithLog(roomId: String, result: MethodChannel.Result) {
         val chatRoom = EnterChatRoomData(roomId)
         NIMClient.getService(ChatRoomService::class.java).enterChatRoom(chatRoom).setCallback(object : RequestCallback<EnterChatRoomData> {
             override fun onSuccess(param: EnterChatRoomData?) {
-
+                result.success(mapOf("code" to 0, "message" to "进入成功"))
             }
 
             override fun onFailed(code: Int) {
-                result.error(code.toString(), "", "");
+                result.success(mapOf("code" to code, "message" to ChatRoomResult.getEnterChatRoomMessage(code)))
             }
 
             override fun onException(exception: Throwable?) {
@@ -91,11 +123,16 @@ object LsChatUtil {
         NIMClient.getService(AuthService::class.java).login(info).setCallback(object : RequestCallback<LoginInfo> {
             override fun onSuccess(param: LoginInfo?) {
                 Log.d("info", param.toString())
-                result.success(Gson().toJson(param))
+//                result.success(Gson().toJson(param))
+                result.success(mapOf("code" to 0, "message" to "登陆成功"))
+//                var message = MessageBuilder.createTextMessage("lm123456789", SessionTypeEnum.P2P,"你坏你坏你坏")
+//                NIMClient.getService(MsgService::class.java).sendMessage(message,false)
             }
 
             override fun onFailed(code: Int) {
+//                result.error(code.toString(), ChatRoomResult.getLogoutErrorMessage(code), "")
                 Log.d("onFailed", code.toString())
+                result.success(mapOf("code" to code, "message" to ChatRoomResult.getLogoutErrorMessage(code)))
             }
 
             override fun onException(exception: Throwable?) {
@@ -107,7 +144,7 @@ object LsChatUtil {
     ///退出登陆
     fun logOut(result: MethodChannel.Result) {
         NIMClient.getService(AuthService::class.java).logout()
-        result.success("");
+        result.success(mapOf("code" to 0))
     }
 
 
@@ -141,8 +178,8 @@ object LsChatUtil {
     }
 
     ///添加登陆状态监听
-    fun addAuthStatusListener(observer: Observer<StatusCode>,isAdd:Boolean) {
-        NIMClient.getService(AuthServiceObserver::class.java).observeOnlineStatus(observer,isAdd)
+    fun addAuthStatusListener(observer: Observer<StatusCode>, isAdd: Boolean) {
+        NIMClient.getService(AuthServiceObserver::class.java).observeOnlineStatus(observer, isAdd)
     }
 
 }

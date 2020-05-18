@@ -3,6 +3,7 @@ package com.example.lsnetchatplugin
 import android.content.Context
 import android.os.Environment
 import android.text.TextUtils
+import android.util.Log
 import androidx.annotation.NonNull
 import com.google.gson.Gson
 import com.netease.nimlib.sdk.*
@@ -14,8 +15,13 @@ import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomInfo
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage
 import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData
+import com.netease.nimlib.sdk.msg.MessageBuilder
+import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.MsgServiceObserve
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.util.api.RequestResult
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -28,13 +34,18 @@ import java.io.IOException
 /** LsnetchatpluginPlugin */
 public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
 
+    ///聊天室消息监听
     private val messageListener = Observer<List<ChatRoomMessage>> {
-        streamEvents?.success(mapOf("type" to 0, "data" to it.map { message ->
-            mapOf("content" to message.content, "nicName" to message.chatRoomMessageExtension.senderNick)
+        streamEvents?.success(mapOf("type" to ChatRoomResult.receiveMessage, "data" to it.map { message ->
+//            message.attachment.toJson()
+            mapOf("content" to message.content
+                    , "nicName" to message.chatRoomMessageExtension.senderNick
+                    , "type" to message.msgType.value)
         }.toList()))
     }
+    ///在线状态
     private val statusListener = Observer<StatusCode> {
-        streamEvents?.success(mapOf("type" to 1, "data" to it.value))
+        streamEvents?.success(mapOf("type" to ChatRoomResult.login, "data" to it.value))
     }
 
 
@@ -91,12 +102,20 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
             "login" -> {
                 LsChatUtil.login(call.argument<String>("account")!!, call.argument<String>("token")!!, result)
                 LsChatUtil.addAuthStatusListener(statusListener, true)
+                LsChatUtil.addOrRemoveMessageListener(messageListener, true)
+                NIMClient.getService(MsgServiceObserve::class.java).observeReceiveMessage({
+                    it.forEach {
+
+                        Log.d("网易云信聊天数据", it.content)
+                    }
+                }, true)
             }
             "logout" -> LsChatUtil.logOut(result)
             "enterChatRoom" -> {
+
                 LsChatUtil.enterChatRoom(call.argument<String>("roomId")!!, result)
             }
-            "exitChatRoom" -> LsChatUtil.exitChatRoom(call.argument<String>("roomId")!!)
+            "exitChatRoom" -> LsChatUtil.exitChatRoom(call.argument<String>("roomId")!!, result)
             "sendTextMessage" -> LsChatUtil.sendTextMessage(call.argument<String>("message")!!, call.argument<String>("nicName")!!, call.argument<String>("roomId")!!, result)
             "messageListener" -> {
                 LsChatUtil.addOrRemoveMessageListener(messageListener, true)
@@ -109,6 +128,9 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
             }
             "removeListener" -> {
                 LsChatUtil.addAuthStatusListener(statusListener, false)
+            }
+            "sendTextMessage2Friend" -> {
+//                LsChatUtil.sendMessage2F()
             }
 
         }
