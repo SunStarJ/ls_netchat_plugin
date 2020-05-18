@@ -34,12 +34,18 @@ public class SwiftLsnetchatpluginPlugin: NSObject, FlutterPlugin {
             LMChatRoomManager.shareInstance.exitChatRoom(withRoomId: dict?["roomId"] ?? "",result: result)
         break;
         case "sendTextMessage"://发送文本消息
-            NIMSDKManager.shareInstance.sendATextMessage(text: dict?["message"] ?? "", sessionId: "", nicName: "", result: result)
+            NIMSDKManager.shareInstance.sendATextMessage(text: dict?["message"] ?? "", sessionId: dict?["roomId"] ?? "", nicName: dict?["nicName"] ?? "", result: result)
         break;
         case "roomInfo"://获取房间信息
-            LMChatRoomManager.shareInstance.getChatRoomInfo(withRoomId: "") { (chatRoom) in
+            LMChatRoomManager.shareInstance.getChatRoomInfo(withRoomId: dict?["roomId"] ?? "") { (chatRoom) in
                 result(chatRoom?.name)
             }
+        break;
+        case "messageListener"://添加聊天消息监听
+            NIMSDKManager.shareInstance.addChatObsever()
+        break;
+        case "removeMessageListener"://移除聊天消息监听
+            NIMSDKManager.shareInstance.removeChatObsever()
         break;
         default:
             result(FlutterMethodNotImplemented);

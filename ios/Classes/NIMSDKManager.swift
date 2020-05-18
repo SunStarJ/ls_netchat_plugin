@@ -145,7 +145,7 @@ class NIMSDKManager: LMBaseFlutterManager{
                 print("获取聊天室信息成功")
                 
                 result([
-                    "code": "0",
+                    "code": 0,
                     "message": chatRoom?.onlineUserCount ?? 0
                 ]
 )
@@ -286,7 +286,7 @@ extension NIMSDKManager: NIMChatManagerDelegate{
     
     //收到消息回调
     func onRecvMessages(_ messages: [NIMMessage]) {
-        MessageListenerChannelSupport.sharedInstance.eventChannelToFlutter(messages: messages)
+        MessageListenerChannelSupport.sharedInstance.sendMessageToFlutter(messages: messages)
     }
     
 }

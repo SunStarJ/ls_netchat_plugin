@@ -11,10 +11,10 @@ class LMTools {
     
     //处理success返回给flutter
     //des:描述
-    static func resultSuccessToFlutter(des: String)->Dictionary<String,String>{
+    static func resultSuccessToFlutter(des: String)->Dictionary<String,Any>{
         
            return [
-               "code": "0",
+               "code": 0,
                "message": des
            ]
               
@@ -22,14 +22,14 @@ class LMTools {
     
 
     //处理error返回给flutter
-    static func resultErrorToFlutter(error: Error)->Dictionary<String,String>{
+    static func resultErrorToFlutter(error: Error)->Dictionary<String,Any>{
               
            let e: NSError = error as NSError
            
            let errorDes: String = e.userInfo["NSLocalizedDescription"] as! String;
            
            return [
-               "code": String(e.code),
+                "code": e.code,
                "message": errorDes
            ]
               

@@ -55,10 +55,10 @@ class _MyAppState extends State<MyApp> {
               MaterialButton(
                 onPressed: () {
                   Lsnetchatplugin.login(
-                          "test", "360b18577569a2c15d8b84dd9bc54fe7")
+                          "lm123456789", "5e15369debb7230611b81dd65bf05d92")
                       .then((data) {
                     setState(() {
-                      _userData = "登录${data}";
+                      _userData = "登录${data.message}";
                     });
                   });
                 },
@@ -66,19 +66,7 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.logout().then((data) {
-                    setState(() {
-                      _userData = "登出${data}";
-                    });
-                  }).catchError((error) {
-                    print(error);
-                  });
-
-//                  Lsnetchatplugin.logout().whenComplete(() {
-//                    setState(() {
-//                      _userData = "";
-//                    });
-//                  });
+                  Lsnetchatplugin.sendTextMessage("123","roomid","樱桃大丸子");
                 },
                 child: Text("发送消息"),
               ),

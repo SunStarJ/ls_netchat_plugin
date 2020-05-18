@@ -5,75 +5,129 @@ import 'package:flutter/services.dart';
 import 'package:lsnetchatplugin/login_data.dart';
 import 'package:lsnetchatplugin/message_data.dart';
 
+/**
+ * 所有的成功回调code都为0，error回调会有不同的错误码和描述
+ * */
+
 class Lsnetchatplugin {
   static const MethodChannel _channel = const MethodChannel('lsnetchatplugin');
   static const EventChannel _eventChannel =
       const EventChannel('lsnetchatplugin_e');
-  static ValueChanged<BaseMessage> messageListener;
+
+  static ValueChanged<List<NIMessage>> messageListener;
+
+  //eventChannel监听分发中心
+  static eventChannelDistribution() {
+    _eventChannel.receiveBroadcastStream().listen((data) {
+      print(data);
+      int type = data["type"];
+
+      switch (type) {
+        case 105: //接收到消息
+          {
+            List<NIMessage> msgList =
+                MsgListResult().getResultFromMap(data["data"]);
+            messageListener.call(msgList);
+          }
+          break;
+
+        default:
+          print(data["data"]);
+          break;
+      }
+    });
+  }
+
   ///初始化聊天工具
   static initChatUtil(String appKey) {
-    _channel.invokeMethod("initChatUtil",{"appKey":appKey});
+    _channel.invokeMethod("initChatUtil", {"appKey": appKey});
+    //初始化的时候添加消息监听（考虑到可能会有其他监听，所以在这儿添加的，目前只有聊天，所以也可以加到添加聊天监听那儿）
+    eventChannelDistribution();
+  }
+
+  static LSNetChatPluginMethodChannelResultData dealMethodChannelResultMap(
+      Map data) {
+    return LSNetChatPluginMethodChannelResultData()
+      ..code = data["code"]
+      ..message = data["message"];
   }
 
   ///登陆
-  static Future<LoginData> login(String account, String token) =>
-      _channel.invokeMethod("login", {"account": account, "token": token}).then((data){
-        return LoginData()..code = data["code"]..message = data["message"];
+  static Future<LSNetChatPluginMethodChannelResultData> login(
+          String account, String token) =>
+      _channel.invokeMethod("login", {"account": account, "token": token}).then(
+          (data) {
+        return dealMethodChannelResultMap(data);
       });
 
   ///退出登陆
-  static Future<String> logout() =>
-      _channel.invokeMethod("logout");
+  static Future<LSNetChatPluginMethodChannelResultData> logout() =>
+      _channel.invokeMethod("logout").then((data) {
+        return dealMethodChannelResultMap(data);
+      });
 
   ///进入聊天室
-  static Future enterChatRoom(String roomId) =>
-      _channel.invokeMethod("enterChatRoom", {"roomId": roomId});
+  static Future<LSNetChatPluginMethodChannelResultData> enterChatRoom(
+          String roomId, String nicName) =>
+      _channel.invokeMethod(
+          "enterChatRoom", {"roomId": roomId, "nicName": nicName}).then((data) {
+        return dealMethodChannelResultMap(data);
+      });
 
   ///退出聊天室
-  static Future exitChatRoom(String roomId)=>_channel.invokeMethod("exitChatRoom",{"roomId": roomId});
+  static Future exitChatRoom(String roomId) =>
+      _channel.invokeMethod("exitChatRoom", {"roomId": roomId}).then((data) {
+        return dealMethodChannelResultMap(data);
+      });
 
   ///发送文字消息
-  static Future sendTextMessage(String message)=>_channel.invokeMethod("sendTextMessage",{"message":message});
+  static Future sendTextMessage(
+          String message, String roomId, String nicName) =>
+      _channel.invokeMethod("sendTextMessage", {
+        "message": message,
+        "nicName": nicName,
+        "roomId": roomId
+      }).then((data) {
+        return dealMethodChannelResultMap(data);
+      });
 
-  //添加聊天室监听
-  static Future addChatRoomLinkListener() async{
+//  //添加聊天室监听
+//  static Future addChatRoomLinkListener() async{
+//
+//    _channel.invokeMethod("");
+//
+//  }
 
-    _eventChannel.receiveBroadcastStream().listen((data){
-
-      //用同一个通道，针对不同的data做处理
-
-    });
-
-  }
-
-  //添加登录监听
-  static Future addLoginStatusListener() async{
-
-    _eventChannel.receiveBroadcastStream().listen((data){
-
-      //用同一个通道，针对不同的data做处理
-
-    });
-
-  }
+//  //添加登录监听
+//  static Future addLoginStatusListener() async{
+//
+//    _eventChannel.receiveBroadcastStream().listen((data){
+//
+//      //用同一个通道，针对不同的data做处理
+//
+//    });
+//
+//  }
 
   ///添加会话消息监听
-  static Future addListener(ValueChanged<String> messageListener) async{
+  static addListener(ValueChanged<String> messageListener) async {
     messageListener = messageListener;
-    _eventChannel.receiveBroadcastStream().listen((data){
-      messageListener?.call(data);
-    });
-    await _channel.invokeMethod("messageListener");
+    _channel.invokeMethod("messageListener");
   }
 
   ///移除监听
   static Future removeListener() async {
     messageListener = null;
-    await _channel.invokeMethod("removeMessageListener");
+    _channel.invokeMethod("removeMessageListener");
   }
 
   ///获取房间信息
-  static Future getRoomInfo(String message)=> _channel.invokeMethod("roomInfo",{"message":message});
+  static Future getRoomInfo(String roomId) =>
+      _channel.invokeMethod("roomInfo", {"roomId": roomId}).then((data) {
+        return ChatRoomInfoData()
+          ..code = data["code"]
+          ..onlineUserCount = data["message"];
+      });
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');

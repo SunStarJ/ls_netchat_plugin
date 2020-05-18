@@ -8,12 +8,29 @@
  * @CreateDate:     2020/5/18 14:42
  */
 
-class BaseMessage{
-  int type;
-  String nicName;
-  TextMessageData textMessage;
+class MsgListResult {
+  List<NIMessage> msgList;
+
+  List<NIMessage> getResultFromMap(data) {
+    msgList = List();
+    data.forEach((info) {
+      msgList.add(NIMessage()
+        ..nicName = info["nicName"]
+        ..msgType = info["msgType"]
+        ..content = info["content"]);
+    });
+
+    return msgList;
+  }
 }
 
-class TextMessageData{
-  String messageInfo;
+class NIMessage {
+  int msgType;
+  String nicName;
+  String content;
+//TextMessageData textMessage;
 }
+
+//class TextMessageData{
+//  String messageInfo;
+//}

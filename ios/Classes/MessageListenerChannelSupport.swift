@@ -39,16 +39,16 @@ class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler
          return nil
     }
     
-    func eventChannelToFlutter(messages: [NIMMessage]){
+    func sendMessageToFlutter(messages: [NIMMessage]){
         
-        var dicts = Array<[String:String]>();
+        var dicts = Array<[String:Any]>();
         
         for item in messages {
             
-            var dict = [String:String]()
+            var dict = [String:Any]()
             dict["content"] = item.text
             dict["nicName"] = item.senderName
-            dict["type"] = String(item.messageType.rawValue)
+            dict["msgType"] = item.messageType.rawValue
             dicts.append(dict)
         }
         
