@@ -52,6 +52,7 @@ class NIMSDKManager: LMBaseFlutterManager{
         let regisOption = NIMSDKOption(appKey: appKey)
         //1.sdk初始化
         NIMSDK.shared().register(with: regisOption)
+        
     }
     
     //添加消息监听

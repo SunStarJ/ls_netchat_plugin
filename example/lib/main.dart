@@ -17,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    Lsnetchatplugin.initChatUtil("0267466fd2eca06140a495685764048d");
+    Lsnetchatplugin.initChatUtil("8d4f15775c9cb2a2a44fca0025e4c0a0");
     initPlatformState();
 
   }
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
               MaterialButton(
                 onPressed: () {
                   Lsnetchatplugin.login(
-                          "test", "360b18577569a2c15d8b84dd9bc54fe7")
+                          "lm123456", "3d250144c66c18054fe2588747b4b84b")
                       .then((data) {
                     setState(() {
                       _userData = "登录${data}";

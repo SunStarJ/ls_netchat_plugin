@@ -1,7 +1,7 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/yunxiwangluo/Documents/flutter
-FLUTTER_APPLICATION_PATH=/Users/yunxiwangluo/Desktop/ls_netchat_plugin/example
-FLUTTER_TARGET=/Users/yunxiwangluo/Desktop/ls_netchat_plugin/example/lib/main.dart
+FLUTTER_APPLICATION_PATH=/Users/yunxiwangluo/Desktop/ls_netchat_plugin 2/example
+FLUTTER_TARGET=/Users/yunxiwangluo/Desktop/ls_netchat_plugin 2/example/lib/main.dart
 FLUTTER_BUILD_DIR=build
 SYMROOT=${SOURCE_ROOT}/../build/ios
 FLUTTER_FRAMEWORK_DIR=/Users/yunxiwangluo/Documents/flutter/bin/cache/artifacts/engine/ios
