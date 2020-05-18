@@ -34,7 +34,7 @@ public class SwiftLsnetchatpluginPlugin: NSObject, FlutterPlugin {
             LMChatRoomManager.shareInstance.exitChatRoom(withRoomId: dict?["roomId"] ?? "",result: result)
         break;
         case "sendTextMessage"://发送文本消息
-            NIMSDKManager.shareInstance.sendATextMessage(text: dict?["message"] ?? "", sessionId: "",result: result)
+            NIMSDKManager.shareInstance.sendATextMessage(text: dict?["message"] ?? "", sessionId: "", nicName: "", result: result)
         break;
         case "roomInfo"://获取房间信息
             LMChatRoomManager.shareInstance.getChatRoomInfo(withRoomId: "") { (chatRoom) in

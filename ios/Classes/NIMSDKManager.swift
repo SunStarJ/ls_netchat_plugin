@@ -14,18 +14,49 @@ class NIMSDKManager: LMBaseFlutterManager{
     
     static let shareInstance = NIMSDKManager();
     
-    override init() {
-        super.init();
+    //初始化sdk
+    func initIM(appKey: String){
+        //sdk配置
+        let regisOption = NIMSDKOption(appKey: appKey)
+        //1.sdk初始化
+        NIMSDK.shared().register(with: regisOption)
+        //打开输出
+        NIMSDK.shared().enableConsoleLog();
         
     }
     
+    //添加监听
+    func addListener(){
+        
+        NIMSDK.shared().loginManager.add(self);
+        NIMSDK.shared().chatroomManager.add(self);
+        
+    }
+    
+    
     func login(withAccount account: String,token: String,result: @escaping FlutterResult){
+        
+        //添加监听
+        addListener();
         
         //2.手动登录
         NIMSDK.shared().loginManager.login(account, token: token) { [weak self] (error) in
-            self?.LMLogError(des: "手动登陆", error: error)
-            //登陆成功后添加消息监听
-            self?.addChatObsever()
+            
+            if let e = error{
+            
+                self?.LMLogError(des: "手动登陆出错", error: e)
+                
+                result(LMTools.resultErrorToFlutter(error: e))
+    
+            }else{
+                    
+                result(LMTools.resultSuccessToFlutter(des: "登录成功"))
+                
+                //登陆成功后添加消息监听
+                self?.addChatObsever()
+                result(NIMSDK.shared().loginManager.currentAccount());
+                
+            }
         }
         //自动登录
         //NIMSDK.shared().loginManager.autoLogin("", token: "")
@@ -37,23 +68,108 @@ class NIMSDKManager: LMBaseFlutterManager{
         NIMSDK.shared().loginManager.logout {[weak self] (error) in
             
             if let e = error{
-                print("LM_登出:\(e)")
+                print("LM_登出失败:\(e)")
+                
+                result(LMTools.resultErrorToFlutter(error: e))
+                
+            }else{
+                
+                result(LMTools.resultSuccessToFlutter(des: "登出成功"))
+                
+                //退出登录后移除消息监听
+                self?.addChatObsever()
             }
-            //退出登录后移除消息监听
-            self?.addChatObsever()
-            
         }
     }
     
-    
-    //初始化sdk
-    func initIM(appKey: String){
-        //sdk配置
-        let regisOption = NIMSDKOption(appKey: appKey)
-        //1.sdk初始化
-        NIMSDK.shared().register(with: regisOption)
+    //进入聊天室
+    func enterChatRoom(roomId: String,nickName: String, result: @escaping FlutterResult){
+        
+        let request = NIMChatroomEnterRequest()
+        request.roomId = "110"
+        request.roomNickname = "面对疾风吧"
+        
+        
+        //进入聊天室
+        NIMSDK.shared().chatroomManager.enterChatroom(request) { (error, chatRoom, roomMember) in
+            
+            if let e = error{
+                print("LM_进入聊天室出错:\(e)")
+                
+                result(LMTools.resultErrorToFlutter(error: e))
+                
+            }else{
+                print("LM_进入聊天室成功:\(String(describing: chatRoom)),roomMember:\(String(describing: roomMember))")
+                
+                result(LMTools.resultSuccessToFlutter(des: "LM_进入聊天室成功"))
+                
+            }
+
+        }
         
     }
+    
+    
+    //退出聊天室
+    func exitChatRoom(roomId: String, result: FlutterResult?){
+        
+        //退出聊天室
+        NIMSDK.shared().chatroomManager.exitChatroom(roomId) { (error) in
+            
+            if let e = error{
+             
+                print("退出聊天室出错：\(e)")
+                
+                result!(LMTools.resultErrorToFlutter(error: e))
+                
+            }else{
+                print("退出聊天室成功")
+                
+                result!(LMTools.resultSuccessToFlutter(des: "退出聊天室成功"))
+            }
+        }
+        
+    }
+    
+    func getChatRoomInfo(roomId: String, result:@escaping FlutterResult){
+        
+        NIMSDK.shared().chatroomManager.fetchChatroomInfo(roomId) { (error, chatRoom) in
+            
+            if let e = error{
+             
+                print("获取聊天室信息出错：\(e)")
+                
+                result(LMTools.resultErrorToFlutter(error: e))
+                
+            }else{
+                print("获取聊天室信息成功")
+                
+                result([
+                    "code": "0",
+                    "message": chatRoom?.onlineUserCount ?? 0
+                ]
+)
+            }
+            
+            
+        }
+        
+    }
+    
+    
+    
+    //独立模式下聊天室注册ip地址
+    func chatRoomIndependentModeregisterIP(address: String){
+        
+        NIMChatroomIndependentMode.registerRequestChatroomAddressesHandler { (roomId, callback) in
+        
+            
+            callback(nil, [address])
+            
+        }
+        
+    }
+    
     
     //添加消息监听
     func addChatObsever(){
@@ -67,16 +183,22 @@ class NIMSDKManager: LMBaseFlutterManager{
 
     
     //发送一条文本消息
-    func sendATextMessage(text: String,sessionId: String,result: @escaping FlutterResult){
+    func sendATextMessage(text: String,sessionId: String,nicName: String,result: @escaping FlutterResult){
         
-       let session = NIMSession(sessionId, type: NIMSessionType.chatroom);
+       let session = NIMSession(sessionId, type: NIMSessionType.P2P);
         let textMsg = NIMMessage();
         textMsg.text = text;
+        textMsg.messageExt = nicName;
         
         NIMSDK.shared().chatManager.send(textMsg, to: session) { (error) in
             
             if let e = error{
                 print("LM_发送文本消息:\(e)")
+                 result(LMTools.resultErrorToFlutter(error: e))
+                
+            }else{
+                print("LM_发送文本消息成功")
+                result(LMTools.resultSuccessToFlutter(des: "发送文本消息成功"))
             }
             
         }
@@ -87,6 +209,9 @@ class NIMSDKManager: LMBaseFlutterManager{
             print("LM_\(des):\(e)")
         }
     }
+    
+   
+    
     
 }
 
@@ -139,8 +264,19 @@ extension NIMSDKManager: NIMLoginManagerDelegate{
         
     }
     
+    //被踢了
+    func onKick(_ code: NIMKickReason, clientType: NIMLoginClientType) {
+        
+        print("被踢了，兄得")
+        
+        
+    }
+    
     func onAutoLoginFailed(_ error: Error) {
         LMLogError(des: "自动登录", error: error)
+    
+        print("自动登录失败了，换个网吧兄得")
+        
     }
     
 }
@@ -155,3 +291,18 @@ extension NIMSDKManager: NIMChatManagerDelegate{
     
 }
 
+extension NIMSDKManager: NIMChatroomManagerDelegate{
+    
+    //自动登录出错
+    //在重连时，可能遇到一些特殊网络错误（如聊天室用户被封禁，聊天室状态异常），会触发以下回调，开发者应该在这个回调中退出聊天室界面。
+    func chatroom(_ roomId: String, autoLoginFailed error: Error) {
+        
+        print(error);
+        
+        
+//        //退出房间
+//        self.exitChatRoom(roomId: roomId, result: nil)
+        
+    }
+    
+}

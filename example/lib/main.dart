@@ -20,6 +20,7 @@ class _MyAppState extends State<MyApp> {
     Lsnetchatplugin.initChatUtil("8d4f15775c9cb2a2a44fca0025e4c0a0");
     initPlatformState();
 
+
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -53,11 +54,13 @@ class _MyAppState extends State<MyApp> {
               MaterialButton(
                 onPressed: () {
                   Lsnetchatplugin.login(
-                          "lm123456", "3d250144c66c18054fe2588747b4b84b")
+                          "lm123456789", "12fc01e8c8627537c20381014afead2d")
                       .then((data) {
                     setState(() {
                       _userData = "登录${data}";
                     });
+                  }).catchError((e){
+                    print("CCCCC-${e.code}");
                   });
                 },
                 child: Text("登陆"),

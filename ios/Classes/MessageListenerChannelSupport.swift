@@ -8,6 +8,14 @@
 import UIKit
 import NIMSDK
 
+enum ResultType: Int {
+    //错误
+    case error = -1;
+    //接收到消息
+    case receiveMessage = 105;
+}
+
+
 class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler{
     
     static let sharedInstance = MessageListenerChannelSupport()
@@ -33,8 +41,20 @@ class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler
     
     func eventChannelToFlutter(messages: [NIMMessage]){
         
-        self.eventSink?(messages[0].text ?? "");
+        var dicts = Array<[String:String]>();
+        
+        for item in messages {
+            
+            var dict = [String:String]()
+            dict["content"] = item.text
+            dict["nicName"] = item.senderName
+            dict["type"] = String(item.messageType.rawValue)
+            dicts.append(dict)
+        }
+        
+        self.eventSink?(self.createResult(type: .receiveMessage, data: dicts));
     }
+    
     
     func LoginStatusEventChannelToFlutter(des: String){
         
@@ -44,6 +64,12 @@ class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler
     func ChatRoomLinkEventChannelToFlutter(des: String){
         
         self.eventSink?(des);
+    }
+    
+    func createResult(type:ResultType,data:Any)->Dictionary<String, Any>{
+        
+        return ["type":type.rawValue,"data":data]
+        
     }
     
     
