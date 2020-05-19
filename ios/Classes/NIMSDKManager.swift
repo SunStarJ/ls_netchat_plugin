@@ -86,10 +86,29 @@ class NIMSDKManager: LMBaseFlutterManager{
     func enterChatRoom(roomId: String,nickName: String, result: @escaping FlutterResult){
         
         let request = NIMChatroomEnterRequest()
+        request.roomId = roomId
+        request.roomNickname = nickName
+        
+        enterChatRoom(withRequest: request, result: result)
+    }
+    
+    //独立模式进入聊天室
+    func enterChatRoomIndependentMode(result: @escaping FlutterResult) {
+        
+        let mode: NIMChatroomIndependentMode = NIMChatroomIndependentMode()
+        mode.token = "";
+        mode.username = ""
+        
+        let request = NIMChatroomEnterRequest()
         request.roomId = "110"
         request.roomNickname = "面对疾风吧"
+        request.mode = mode
         
+        enterChatRoom(withRequest: request, result: result)
         
+    }
+    
+    func enterChatRoom(withRequest request: NIMChatroomEnterRequest,result: @escaping FlutterResult){
         //进入聊天室
         NIMSDK.shared().chatroomManager.enterChatroom(request) { (error, chatRoom, roomMember) in
             
@@ -106,8 +125,8 @@ class NIMSDKManager: LMBaseFlutterManager{
             }
 
         }
-        
     }
+    
     
     
     //退出聊天室
@@ -163,7 +182,6 @@ class NIMSDKManager: LMBaseFlutterManager{
         
         NIMChatroomIndependentMode.registerRequestChatroomAddressesHandler { (roomId, callback) in
         
-            
             callback(nil, [address])
             
         }
@@ -209,10 +227,6 @@ class NIMSDKManager: LMBaseFlutterManager{
             print("LM_\(des):\(e)")
         }
     }
-    
-   
-    
-    
 }
 
 //登录监听回调

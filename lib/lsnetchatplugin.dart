@@ -75,13 +75,13 @@ class Lsnetchatplugin {
       });
 
   ///退出聊天室
-  static Future exitChatRoom(String roomId) =>
+  static Future<LSNetChatPluginMethodChannelResultData> exitChatRoom(String roomId) =>
       _channel.invokeMethod("exitChatRoom", {"roomId": roomId}).then((data) {
         return dealMethodChannelResultMap(data);
       });
 
   ///发送文字消息
-  static Future sendTextMessage(
+  static Future<LSNetChatPluginMethodChannelResultData> sendTextMessage(
           String message, String roomId, String nicName) =>
       _channel.invokeMethod("sendTextMessage", {
         "message": message,
@@ -122,7 +122,7 @@ class Lsnetchatplugin {
   }
 
   ///获取房间信息
-  static Future getRoomInfo(String roomId) =>
+  static Future<ChatRoomInfoData> getRoomInfo(String roomId) =>
       _channel.invokeMethod("roomInfo", {"roomId": roomId}).then((data) {
         return ChatRoomInfoData()
           ..code = data["code"]
