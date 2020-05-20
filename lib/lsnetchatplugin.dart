@@ -16,6 +16,7 @@ class Lsnetchatplugin {
 
   static ValueChanged<List<NIMessage>> messageListener;
 
+
   //eventChannel监听分发中心
   static eventChannelDistribution() {
     _eventChannel.receiveBroadcastStream().listen((data) {
@@ -27,7 +28,7 @@ class Lsnetchatplugin {
           {
             List<NIMessage> msgList =
                 MsgListResult().getResultFromMap(data["data"]);
-            messageListener.call(msgList);
+            messageListener?.call(msgList);
           }
           break;
 
@@ -113,8 +114,8 @@ class Lsnetchatplugin {
 //  }
 
   ///添加会话消息监听
-  static addListener(ValueChanged<String> messageListener) async {
-    messageListener = messageListener;
+  static addListener(ValueChanged<List<NIMessage>> messageListener) async {
+    Lsnetchatplugin.messageListener = messageListener;
     _channel.invokeMethod("messageListener");
   }
 

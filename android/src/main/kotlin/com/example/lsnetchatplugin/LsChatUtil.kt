@@ -30,7 +30,7 @@ object LsChatUtil {
         NIMClient.getService(ChatRoomService::class.java).fetchRoomInfo(roomId).setCallback(object : RequestCallback<ChatRoomInfo> {
             override fun onSuccess(param: ChatRoomInfo?) {
                 param?.run {
-                    result.success(mapOf("code" to 0, "count" to onlineUserCount))
+                    result.success(mapOf("code" to 0, "message" to onlineUserCount))
                 }
 
             }
@@ -52,7 +52,7 @@ object LsChatUtil {
     ///发送文字消息
     fun sendTextMessage(message: String, nicName: String, roomId: String, @NonNull result: MethodChannel.Result) {
         val message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, message)
-        message.chatRoomMessageExtension.senderNick = nicName
+//        message.chatRoomMessageExtension.senderNick = nicName
         NIMClient.getService(ChatRoomService::class.java).sendMessage(message, false).setCallback(object : RequestCallback<Void> {
             override fun onSuccess(param: Void?) {
                 result.success(mapOf("code" to 0,"message" to "发送成功"))
@@ -74,9 +74,9 @@ object LsChatUtil {
     }
 
     ///加入聊天室
-    fun enterChatRoom(roomId: String, @NonNull result: MethodChannel.Result) {
+    fun enterChatRoom(roomId: String,nicName:String, @NonNull result: MethodChannel.Result) {
         if (NIMClient.getStatus() == StatusCode.LOGINED) {
-            enterWithLog(roomId, result)
+            enterWithLog(roomId,nicName, result)
         } else {
             enterWithOutLog(roomId, result)
         }
@@ -101,10 +101,11 @@ object LsChatUtil {
     }
 
     ///非独立进入聊天室
-    private fun enterWithLog(roomId: String, result: MethodChannel.Result) {
+    private fun enterWithLog(roomId: String,nicName:String, result: MethodChannel.Result) {
         val chatRoom = EnterChatRoomData(roomId)
-        NIMClient.getService(ChatRoomService::class.java).enterChatRoom(chatRoom).setCallback(object : RequestCallback<EnterChatRoomData> {
-            override fun onSuccess(param: EnterChatRoomData?) {
+        chatRoom.nick = nicName
+        NIMClient.getService(ChatRoomService::class.java).enterChatRoom(chatRoom).setCallback(object : RequestCallback<EnterChatRoomResultData> {
+            override fun onSuccess(param: EnterChatRoomResultData?) {
                 result.success(mapOf("code" to 0, "message" to "进入成功"))
             }
 
@@ -113,6 +114,7 @@ object LsChatUtil {
             }
 
             override fun onException(exception: Throwable?) {
+                result.success(mapOf("code" to -10, "message" to exception.toString()))
             }
         })
     }
