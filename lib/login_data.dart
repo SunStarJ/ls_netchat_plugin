@@ -15,7 +15,7 @@ class LoginData{
 class ChatRoomInfoData{
 
   int code;
-  String onlineUserCount;//在线人数（目前只想到用到这个，所以就传了这一个，以后再有再加）
+  int onlineUserCount;//在线人数（目前只想到用到这个，所以就传了这一个，以后再有再加）
 
 }
 

@@ -70,19 +70,25 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.enterChatRoom(_roomId, "樱桃大丸子");
+                  Lsnetchatplugin.enterChatRoom(_roomId, "樱桃大丸子").then((data){
+                    print("enterChatRoom:${data}");
+                  });
                 },
                 child: Text("进入聊天室"),
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.exitChatRoom(_roomId);
+                  Lsnetchatplugin.exitChatRoom(_roomId).then((data){
+                    print("exitChatRoom:${data.code}---${data.message}");
+                  });
                 },
                 child: Text("退出聊天室"),
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.getRoomInfo(_roomId);
+                  Lsnetchatplugin.getRoomInfo(_roomId).then((data){
+                    print("getRoomInfo:${data.onlineUserCount}");
+                  });
                 },
                 child: Text("查询聊天室信息"),
               ),
