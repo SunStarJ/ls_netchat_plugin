@@ -59,9 +59,15 @@ class _MyAppState extends State<MyApp> {
               MaterialButton(
                 onPressed: () {
                   Lsnetchatplugin.login(
-                          "lm123456789", "5e15369debb7230611b81dd65bf05d92")
+                      "test", "21f615c828068fd7402d013ba2d82380")
                       .then((data) {
                     setState(() {
+                      Lsnetchatplugin.addListener((data){
+                        data.forEach((message){
+                          print("由:${message.nicName}发来一条消息:${message.content}消息类型：${message.msgType}");
+                        });
+
+                      });
                       _userData = "登录${data.message}";
                     });
                   });
@@ -70,7 +76,7 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.enterChatRoom(_roomId, "樱桃大丸子");
+                  Lsnetchatplugin.enterChatRoom(_roomId, "信陵公子");
                 },
                 child: Text("进入聊天室"),
               ),
@@ -82,7 +88,9 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.getRoomInfo(_roomId);
+                  Lsnetchatplugin.getRoomInfo(_roomId).then((data){
+                    print("聊天室人数：${data.onlineUserCount}");
+                  });
                 },
                 child: Text("查询聊天室信息"),
               ),
