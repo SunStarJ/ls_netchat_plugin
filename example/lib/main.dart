@@ -14,6 +14,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _userData = '';
 
+  String _roomId = "ea2712b3883a40c49baad18915cf5520";
+  TextEditingController _controller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -51,6 +54,9 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              TextField(
+                  controller: _controller,
+                ),
               Text("用户：$_userData"),
               MaterialButton(
                 onPressed: () {
@@ -66,7 +72,20 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.sendTextMessage("123","roomid","樱桃大丸子");
+                  Lsnetchatplugin.enterChatRoom(_roomId, "樱桃大丸子");
+                },
+                child: Text("进入聊天室"),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  Lsnetchatplugin.exitChatRoom(_roomId);
+                },
+                child: Text("退出聊天室"),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  Lsnetchatplugin.sendTextMessage(_controller.text,_roomId,"樱桃大丸子");
+                  print(_controller.text);
                 },
                 child: Text("发送消息"),
               ),
