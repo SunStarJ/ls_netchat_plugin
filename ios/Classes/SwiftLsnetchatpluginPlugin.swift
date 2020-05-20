@@ -28,7 +28,7 @@ public class SwiftLsnetchatpluginPlugin: NSObject, FlutterPlugin {
             NIMSDKManager.shareInstance.logoutIM(result: result)
         break;
         case "enterChatRoom"://进入聊天室
-            LMChatRoomManager.shareInstance.joinChatRoom(withRoomId: dict?["roomId"] ?? "",result: result)
+            LMChatRoomManager.shareInstance.joinChatRoom(withRoomId: dict?["roomId"] ?? "", nickName: dict?["nicName"] ?? "",result: result)
         break;
         case "exitChatRoom"://离开聊天室
             LMChatRoomManager.shareInstance.exitChatRoom(withRoomId: dict?["roomId"] ?? "",result: result)
@@ -37,9 +37,7 @@ public class SwiftLsnetchatpluginPlugin: NSObject, FlutterPlugin {
             NIMSDKManager.shareInstance.sendATextMessage(text: dict?["message"] ?? "", sessionId: dict?["roomId"] ?? "", nicName: dict?["nicName"] ?? "", result: result)
         break;
         case "roomInfo"://获取房间信息
-            LMChatRoomManager.shareInstance.getChatRoomInfo(withRoomId: dict?["roomId"] ?? "") { (chatRoom) in
-                result(chatRoom?.name)
-            }
+            LMChatRoomManager.shareInstance.getChatRoomInfo(roomId: dict?["roomId"] ?? "", result: result);
         break;
         case "messageListener"://添加聊天消息监听
             NIMSDKManager.shareInstance.addChatObsever()

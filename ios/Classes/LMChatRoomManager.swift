@@ -13,32 +13,78 @@ class LMChatRoomManager: NSObject {
     static let shareInstance = LMChatRoomManager();
     
     //加入聊天室
-    func joinChatRoom(withRoomId roomid: String,result: @escaping FlutterResult){
+    func joinChatRoom(withRoomId roomid: String,nickName: String,result: @escaping FlutterResult){
         
         let request = NIMChatroomEnterRequest();
         request.roomId = roomid;
+        request.roomNickname = nickName;
         
-        NIMSDK.shared().chatroomManager.enterChatroom(request) { (error, chatRoom, member) in
-            self.addChatRoomManagerObsever();
-            print("进入聊天室：\(String(describing: error)),\(String(describing: chatRoom)),\(String(describing: member))");
-        }
+       enterChatRoom(withRequest: request, result: result)
         
     }
+    
+    func enterChatRoom(withRequest request: NIMChatroomEnterRequest,result: @escaping FlutterResult){
+        //进入聊天室
+        NIMSDK.shared().chatroomManager.enterChatroom(request) { (error, chatRoom, roomMember) in
+            
+            if let e = error{
+                print("LM_进入聊天室出错:\(e)")
+                
+                result(LMTools.resultErrorToFlutter(error: e))
+                
+            }else{
+                print("LM_进入聊天室成功:\(String(describing: chatRoom)),roomMember:\(String(describing: roomMember))")
+                
+                result(LMTools.resultSuccessToFlutter(des: "LM_进入聊天室成功"))
+                
+            }
+
+        }
+    }
+    
     
     //退出聊天室
     func exitChatRoom(withRoomId roomid: String,result: @escaping FlutterResult){
         NIMSDK.shared().chatroomManager.exitChatroom(roomid) { (error) in
-            self.LMLogError(des: "退出聊天室", error: error);
-             self.removeChatRoomManagerObsever();
+            if let e = error{
+             
+                print("退出聊天室出错：\(e)")
+                
+                result(LMTools.resultErrorToFlutter(error: e))
+                
+            }else{
+                print("退出聊天室成功")
+                
+                result(LMTools.resultSuccessToFlutter(des: "退出聊天室成功"))
+            }
         }
     }
     
     //获取聊天室信息
-    func getChatRoomInfo(withRoomId roomid: String,callBack:@escaping ((_ chatRoomInfo: NIMChatroom?)->Void)){
-        NIMSDK.shared().chatroomManager.fetchChatroomInfo(roomid) { (error, chatRoom) in
-            callBack(chatRoom)
+    func getChatRoomInfo(roomId: String, result:@escaping FlutterResult){
+            
+            NIMSDK.shared().chatroomManager.fetchChatroomInfo(roomId) { (error, chatRoom) in
+                
+                if let e = error{
+                 
+                    print("获取聊天室信息出错：\(e)")
+                    
+                    result(LMTools.resultErrorToFlutter(error: e))
+                    
+                }else{
+                    print("获取聊天室信息成功")
+                    
+                    result([
+                        "code": 0,
+                        "message": chatRoom?.onlineUserCount ?? 0
+                    ]
+    )
+                }
+                
+                
+            }
+            
         }
-    }
     
     //添加聊天室监听
     func addChatRoomManagerObsever(){

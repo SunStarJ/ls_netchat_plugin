@@ -84,6 +84,12 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
+                  Lsnetchatplugin.getRoomInfo(_roomId);
+                },
+                child: Text("查询聊天室信息"),
+              ),
+              MaterialButton(
+                onPressed: () {
                   Lsnetchatplugin.sendTextMessage(_controller.text,_roomId,"樱桃大丸子");
                   print(_controller.text);
                 },
