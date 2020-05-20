@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _userData = '';
 
-  String _roomId = "ea2712b3883a40c49baad18915cf5520";
+  String _roomId = "176989645";
   TextEditingController _controller = TextEditingController();
 
   @override
@@ -22,8 +22,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     Lsnetchatplugin.initChatUtil("8d4f15775c9cb2a2a44fca0025e4c0a0");
     initPlatformState();
-
-    print("111");
 
   }
 
@@ -102,12 +100,6 @@ class _MyAppState extends State<MyApp> {
                       _userData = "登出${data}";
                     });
                   });
-
-//                  Lsnetchatplugin.logout().whenComplete(() {
-//                    setState(() {
-//                      _userData = "";
-//                    });
-//                  });
                 },
                 child: Text("退出登陆"),
               ),

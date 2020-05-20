@@ -149,5 +149,7 @@ extension LMChatRoomManager: NIMChatroomManagerDelegate{
     func chatroom(_ roomId: String, autoLoginFailed error: Error) {
         
     }
+    
+    
 
 }
