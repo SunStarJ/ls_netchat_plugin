@@ -46,10 +46,49 @@ class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler
         for item in messages {
             
             var dict = [String:Any]()
-            dict["content"] = item.text
-            dict["nicName"] = item.senderName
-            dict["msgType"] = item.messageType.rawValue
-            dicts.append(dict)
+            
+            if(item.messageType == .text){
+            
+                dict["content"] = item.text
+                dict["nicName"] = item.senderName
+                dict["msgType"] = item.messageType.rawValue
+                dicts.append(dict)
+                
+            }else if (item.messageType == .notification){
+            //对通知类型的消息处理
+                if let o = item.messageObject,o.isKind(of: NIMNotificationObject.self){
+                    
+                    let msgObjc = o as! NIMNotificationObject;
+                    
+                    //如果是聊天室的通知消息
+                    if msgObjc.notificationType == .chatroom{
+                        
+                        let chatRoomNoticContent = msgObjc.content as! NIMChatroomNotificationContent
+                        
+                        let nickName = chatRoomNoticContent.source?.nick
+                        let type = chatRoomNoticContent.eventType
+                        var content = "";
+                        
+                        switch type {
+                        case .enter:
+                            content = "进入聊天室"
+                            break
+                        case .exit:
+                            content = "退出聊天室"
+                            break
+                        default:
+                            content = ""
+                            break
+                        }
+                        
+                        dict["nicName"] = nickName
+                        dict["content"] = content
+                        dict["msgType"] = item.messageType.rawValue
+                        dicts.append(dict)
+                        
+                    }
+                }
+            }
         }
         
         self.eventSink?(self.createResult(type: .receiveMessage, data: dicts));

@@ -72,6 +72,9 @@ class Lsnetchatplugin {
           String roomId, String nicName) =>
       _channel.invokeMethod(
           "enterChatRoom", {"roomId": roomId, "nicName": nicName}).then((data) {
+
+            print(data);
+
         return dealMethodChannelResultMap(data);
       });
 

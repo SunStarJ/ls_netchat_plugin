@@ -203,7 +203,7 @@ class NIMSDKManager: LMBaseFlutterManager{
     //发送一条文本消息
     func sendATextMessage(text: String,sessionId: String,nicName: String,result: @escaping FlutterResult){
         
-       let session = NIMSession(sessionId, type: NIMSessionType.P2P);
+       let session = NIMSession(sessionId, type: NIMSessionType.chatroom);
         let textMsg = NIMMessage();
         textMsg.text = text;
         textMsg.messageExt = nicName;
@@ -301,6 +301,7 @@ extension NIMSDKManager: NIMChatManagerDelegate{
     //收到消息回调
     func onRecvMessages(_ messages: [NIMMessage]) {
         MessageListenerChannelSupport.sharedInstance.sendMessageToFlutter(messages: messages)
+        
     }
     
 }
