@@ -67,6 +67,22 @@ object LsChatUtil {
         })
     }
 
+    ///送礼物
+    fun sendGift(message: String, nicName: String, roomId: String, @NonNull result: MethodChannel.Result) {
+        val message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, message)
+//        message.chatRoomMessageExtension.senderNick = nicName
+        NIMClient.getService(ChatRoomService::class.java).sendMessage(message, false).setCallback(object : RequestCallback<Void> {
+            override fun onSuccess(param: Void?) {
+                result.success(mapOf("code" to 0,"message" to "发送成功"))
+            }
+            override fun onFailed(code: Int) {
+                result.success(mapOf("code" to code,"message" to "发送失败"))
+            }
+            override fun onException(exception: Throwable?) {
+            }
+        })
+    }
+
     ///退出聊天室
     fun exitChatRoom(roomId: String, @NonNull result: MethodChannel.Result) {
         NIMClient.getService(ChatRoomService::class.java).exitChatRoom(roomId)

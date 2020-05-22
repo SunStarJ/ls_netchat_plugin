@@ -145,6 +145,7 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
             }
             "exitChatRoom" -> LsChatUtil.exitChatRoom(call.argument<String>("roomId")!!, result)
             "sendTextMessage" -> LsChatUtil.sendTextMessage(call.argument<String>("message")!!, call.argument<String>("nicName")!!, call.argument<String>("roomId")!!, result)
+            "sendGift" -> LsChatUtil.sendGift(call.argument<String>("message")!!, call.argument<String>("nicName")!!, call.argument<String>("roomId")!!, result)
             "messageListener" -> {
                 LsChatUtil.addOrRemoveMessageListener(messageListener, true)
             }

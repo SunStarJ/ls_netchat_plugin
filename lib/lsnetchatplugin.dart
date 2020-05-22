@@ -95,6 +95,17 @@ class Lsnetchatplugin {
         return dealMethodChannelResultMap(data);
       });
 
+  ///送礼物
+  static Future<LSNetChatPluginMethodChannelResultData> sendGift(
+      String message, String roomId, String nicName) =>
+      _channel.invokeMethod("sendGift", {
+        "message": message,
+        "nicName": nicName,
+        "roomId": roomId
+      }).then((data) {
+        return dealMethodChannelResultMap(data);
+      });
+
 //  //添加聊天室监听
 //  static Future addChatRoomLinkListener() async{
 //

@@ -101,6 +101,13 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
+                  Lsnetchatplugin.sendGift(_controller.text,_roomId,"樱桃大丸子");
+                  print(_controller.text);
+                },
+                child: Text("送礼物"),
+              ),
+              MaterialButton(
+                onPressed: () {
                   Lsnetchatplugin.logout().then((data) {
                     setState(() {
                       _userData = "登出${data}";
