@@ -75,12 +75,7 @@ object LsChatUtil {
 
     ///加入聊天室
     fun enterChatRoom(roomId: String,nicName:String, @NonNull result: MethodChannel.Result) {
-        if (NIMClient.getStatus() == StatusCode.LOGINED) {
-            enterWithLog(roomId,nicName, result)
-        } else {
-            enterWithOutLog(roomId, result)
-        }
-
+        enterWithLog(roomId,nicName, result)
     }
 
     ///独立进入聊天室
