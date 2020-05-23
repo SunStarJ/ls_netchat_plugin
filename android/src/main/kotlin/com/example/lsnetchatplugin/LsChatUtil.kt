@@ -2,12 +2,9 @@ package com.example.lsnetchatplugin
 
 import android.content.Context
 import android.os.Environment
-import android.os.Message
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.NonNull
-import com.google.gson.Gson
-import com.netease.nimlib.NimNosSceneKeyConstant
 import com.netease.nimlib.sdk.*
 import com.netease.nimlib.sdk.auth.AuthService
 import com.netease.nimlib.sdk.auth.AuthServiceObserver
@@ -16,11 +13,9 @@ import com.netease.nimlib.sdk.chatroom.ChatRoomMessageBuilder
 import com.netease.nimlib.sdk.chatroom.ChatRoomService
 import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver
 import com.netease.nimlib.sdk.chatroom.model.*
-import com.netease.nimlib.sdk.msg.MessageBuilder
-import com.netease.nimlib.sdk.msg.MsgService
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import io.flutter.plugin.common.MethodChannel
 import java.io.IOException
+
 
 object LsChatUtil {
 
@@ -49,10 +44,9 @@ object LsChatUtil {
         NIMClient.getService(ChatRoomServiceObserver::class.java).observeReceiveMessage(listener, isAdd)
     }
 
-    ///发送文字消息
-    fun sendTextMessage(message: String, nicName: String, roomId: String, @NonNull result: MethodChannel.Result) {
-        val message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, message)
-//        message.chatRoomMessageExtension.senderNick = nicName
+    fun sendPlayerExitMessage(roomId:String,result: MethodChannel.Result){
+        val attachment = ExitMessage()
+        val message = ChatRoomMessageBuilder.createChatRoomCustomMessage(roomId,attachment)
         NIMClient.getService(ChatRoomService::class.java).sendMessage(message, false).setCallback(object : RequestCallback<Void> {
             override fun onSuccess(param: Void?) {
                 result.success(mapOf("code" to 0,"message" to "发送成功"))
@@ -67,27 +61,17 @@ object LsChatUtil {
         })
     }
 
-    ///退出聊天室
-    fun exitChatRoom(roomId: String, @NonNull result: MethodChannel.Result) {
-        NIMClient.getService(ChatRoomService::class.java).exitChatRoom(roomId)
-        result.success(mapOf("code" to 0, "message" to "退出成功"))
-    }
-
-    ///加入聊天室
-    fun enterChatRoom(roomId: String,nicName:String, @NonNull result: MethodChannel.Result) {
-        enterWithLog(roomId,nicName, result)
-    }
-
-    ///独立进入聊天室
-    private fun enterWithOutLog(roomId: String, result: MethodChannel.Result) {
-        val chatRoom = EnterChatRoomData(roomId)
-        NIMClient.getService(ChatRoomService::class.java).enterChatRoomEx(chatRoom, 1).setCallback(object : RequestCallback<EnterChatRoomData> {
-            override fun onSuccess(param: EnterChatRoomData?) {
-//                result.success(mapOf("type" to ))
+    ///发送文字消息
+    fun sendTextMessage(message: String, nicName: String, roomId: String, @NonNull result: MethodChannel.Result) {
+        val message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, message)
+//        message.chatRoomMessageExtension.senderNick = nicName
+        NIMClient.getService(ChatRoomService::class.java).sendMessage(message, false).setCallback(object : RequestCallback<Void> {
+            override fun onSuccess(param: Void?) {
+                result.success(mapOf("code" to 0, "message" to "发送成功"))
             }
 
             override fun onFailed(code: Int) {
-                result.error(code.toString(), "", "")
+                result.success(mapOf("code" to code, "message" to "发送失败"))
             }
 
             override fun onException(exception: Throwable?) {
@@ -95,8 +79,43 @@ object LsChatUtil {
         })
     }
 
+    ///退出聊天室
+    fun exitChatRoom(roomId: String, @NonNull result: MethodChannel.Result) {
+        NIMClient.getService(ChatRoomService::class.java).exitChatRoom(roomId)
+        result.success(mapOf("code" to 0, "message" to "退出成功"))
+    }
+
+
+    ///独立进入聊天室
+    fun enterWithOutLog(roomId: String, url: String, result: MethodChannel.Result) {
+        val chatRoom = EnterChatRoomData(roomId)
+        chatRoom.nick = "警员9527"
+        chatRoom.avatar = "https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1590201325&di=e27a648c7fc2bb0582e9a1fdd21af9b1&src=http://a0.att.hudong.com/64/76/20300001349415131407760417677.jpg"
+        chatRoom.setIndependentMode(object : ChatRoomIndependentCallback {
+            override fun getChatRoomLinkAddresses(roomId: String?, account: String?): MutableList<String> {
+                /// TODO 添加获取接口兄弟
+                Log.d("roomRoomId",roomId)
+                Log.d("roomAccont",account)
+                return mutableListOf("");
+            }
+        }, null, null)
+        NIMClient.getService(ChatRoomService::class.java).enterChatRoomEx(chatRoom, 1).setCallback(object : RequestCallback<EnterChatRoomData> {
+            override fun onSuccess(param: EnterChatRoomData?) {
+                result.success(mapOf("code" to 0, "message" to "进入成功"))
+            }
+
+            override fun onFailed(code: Int) {
+                result.success(mapOf("code" to code, "message" to ChatRoomResult.getEnterChatRoomMessage(code)))
+            }
+
+            override fun onException(exception: Throwable?) {
+                result.success(mapOf("code" to -10, "message" to exception.toString()))
+            }
+        })
+    }
+
     ///非独立进入聊天室
-    private fun enterWithLog(roomId: String,nicName:String, result: MethodChannel.Result) {
+    fun enterWithLog(roomId: String, nicName: String, result: MethodChannel.Result) {
         val chatRoom = EnterChatRoomData(roomId)
         chatRoom.nick = nicName
         NIMClient.getService(ChatRoomService::class.java).enterChatRoom(chatRoom).setCallback(object : RequestCallback<EnterChatRoomResultData> {

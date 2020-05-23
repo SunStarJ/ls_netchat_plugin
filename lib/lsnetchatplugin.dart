@@ -15,7 +15,7 @@ class Lsnetchatplugin {
       const EventChannel('lsnetchatplugin_e');
 
   static ValueChanged<List<NIMessage>> messageListener;
-
+  static Function playerStop;
 
   //eventChannel监听分发中心
   static eventChannelDistribution() {
@@ -29,6 +29,11 @@ class Lsnetchatplugin {
             List<NIMessage> msgList =
                 MsgListResult().getResultFromMap(data["data"]);
             messageListener?.call(msgList);
+            msgList.forEach((message) {
+              if (message.content == "401") {
+                playerStop?.call();
+              }
+            });
           }
           break;
 
@@ -39,12 +44,19 @@ class Lsnetchatplugin {
     });
   }
 
+  static initPlayerStopListener(Function playerStop) {
+    Lsnetchatplugin.playerStop = playerStop;
+  }
+
   ///初始化聊天工具
   static initChatUtil(String appKey) {
     _channel.invokeMethod("initChatUtil", {"appKey": appKey});
     //初始化的时候添加消息监听（考虑到可能会有其他监听，所以在这儿添加的，目前只有聊天，所以也可以加到添加聊天监听那儿）
     eventChannelDistribution();
   }
+
+  static enterRoomWithOutLogin(String roomId, String url) => _channel
+      .invokeMethod("enterChatRoomWithOutLog", {"roomId": roomId, "url": url});
 
   static LSNetChatPluginMethodChannelResultData dealMethodChannelResultMap(
       Map data) {
@@ -72,14 +84,14 @@ class Lsnetchatplugin {
           String roomId, String nicName) =>
       _channel.invokeMethod(
           "enterChatRoom", {"roomId": roomId, "nicName": nicName}).then((data) {
-
-            print(data);
+        print(data);
 
         return dealMethodChannelResultMap(data);
       });
 
   ///退出聊天室
-  static Future<LSNetChatPluginMethodChannelResultData> exitChatRoom(String roomId) =>
+  static Future<LSNetChatPluginMethodChannelResultData> exitChatRoom(
+          String roomId) =>
       _channel.invokeMethod("exitChatRoom", {"roomId": roomId}).then((data) {
         return dealMethodChannelResultMap(data);
       });
@@ -132,6 +144,11 @@ class Lsnetchatplugin {
           ..code = data["code"]
           ..onlineUserCount = data["message"];
       });
+
+  ///发送直播结束消息
+  static void stopPlayer(String roomId) {
+    _channel.invokeMethod("sendPlayerExitMessage", {"roomId": roomId});
+  }
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');

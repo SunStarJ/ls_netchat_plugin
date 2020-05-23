@@ -65,12 +65,19 @@ class _MyAppState extends State<MyApp> {
                       _userData = "登录${data.message}";
                     });
                   });
+//                  Lsnetchatplugin.login(
+//                      "test", "21f615c828068fd7402d013ba2d82380")
+//                      .then((data) {
+//                    setState(() {
+//                      _userData = "登录${data.message}";
+//                    });
+//                  });
                 },
                 child: Text("登陆"),
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.enterChatRoom(_roomId, "樱桃大丸子").then((data){
+                  Lsnetchatplugin.enterChatRoom(_roomId, "信陵公子").then((data){
                     print("enterChatRoom:${data}");
                   });
                 },
@@ -78,9 +85,7 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.exitChatRoom(_roomId).then((data){
-                    print("exitChatRoom:${data.code}---${data.message}");
-                  });
+                  Lsnetchatplugin.stopPlayer(_roomId);
                 },
                 child: Text("退出聊天室"),
               ),
