@@ -1,38 +1,19 @@
 package com.example.lsnetchatplugin
 
 import android.content.Context
-import android.os.Environment
-import android.text.TextUtils
-import android.util.Log
 import androidx.annotation.NonNull
-import com.google.gson.Gson
 import com.netease.nimlib.sdk.*
-import com.netease.nimlib.sdk.auth.AuthService
-import com.netease.nimlib.sdk.auth.LoginInfo
-import com.netease.nimlib.sdk.chatroom.ChatRoomMessageBuilder
-import com.netease.nimlib.sdk.chatroom.ChatRoomService
-import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomInfo
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomNotificationAttachment
-import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData
-import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.netease.nimlib.sdk.msg.MsgService
-import com.netease.nimlib.sdk.msg.MsgServiceObserve
-import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
-import com.netease.nimlib.sdk.msg.constant.NotificationType
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
-import com.netease.nimlib.sdk.util.api.RequestResult
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import io.reactivex.rxjava3.core.Observable
-import java.io.IOException
+import com.example.lsnetchatplugin.CustomAttachParser
 
 
 /** LsnetchatpluginPlugin */
@@ -40,35 +21,36 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
 
     ///聊天室消息监听
     private val messageListener = Observer<List<ChatRoomMessage>> {
-        it.forEach {
-            if (it.msgType == MsgTypeEnum.notification) {
-                Log.d("测试", "恭迎大爹${(it.attachment as ChatRoomNotificationAttachment).operatorNick}进入直播间")
-            } else {
-                Log.d("测试", "看大爹${it.chatRoomMessageExtension.senderNick}发了一条消息：${it.content}类型${it.msgType.value}")
-            }
-        }
-
-        Observable.fromIterable(it).filter { messageData ->
-            messageData.msgType == MsgTypeEnum.notification
-        }.subscribe {
-
-        }
-
         streamEvents?.success(mapOf("type" to ChatRoomResult.receiveMessage, "data" to buildMessage(it).toList()))
     }
 
     private fun buildMessage(it: List<ChatRoomMessage>): List<Map<String, Any>> {
         return it.map { message ->
             mapOf("content" to if (message.msgType.value == 0) message.content else {
-                if ((message.attachment as ChatRoomNotificationAttachment).type.value == 301) {
-                    "进入直播间"
-                } else if ((message.attachment as ChatRoomNotificationAttachment).type.value == 302) {
-                    "离开直播间"
-                } else "未知"
+                buildContent(message)
             }
-                    , "nicName" to if (message.msgType.value == 0) message.chatRoomMessageExtension.senderNick else (message.attachment as ChatRoomNotificationAttachment).operatorNick
+                    , "nicName" to getNic(message)
                     , "msgType" to message.msgType.value)
         }
+    }
+
+    ///获取消息发送人
+    private fun getNic(message: ChatRoomMessage) =
+            if (message.msgType.value == 0) message.chatRoomMessageExtension.senderNick else if (message.attachment is ChatRoomNotificationAttachment) {
+                (message.attachment as ChatRoomNotificationAttachment).operatorNick
+            }else message.chatRoomMessageExtension.senderNick
+
+    ///创建内容
+    private fun buildContent(message: ChatRoomMessage): Any {
+        return if (message.attachment is ChatRoomNotificationAttachment) {
+            if ((message.attachment as ChatRoomNotificationAttachment).type.value == 301) {
+                "进入直播间"
+            } else if ((message.attachment as ChatRoomNotificationAttachment).type.value == 302) {
+                "离开直播间"
+            } else "未知"
+        } else if (message.attachment is ExitMessage) {
+            (message.attachment as ExitMessage).message
+        } else "未知"
     }
 
     ///在线状态
@@ -89,7 +71,7 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
 
             override fun onCancel(arguments: Any?) {
 
-            }
+            } 
         })
     }
 
@@ -131,17 +113,14 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
                 LsChatUtil.login(call.argument<String>("account")!!, call.argument<String>("token")!!, result)
                 LsChatUtil.addAuthStatusListener(statusListener, true)
                 LsChatUtil.addOrRemoveMessageListener(messageListener, true)
-                NIMClient.getService(MsgServiceObserve::class.java).observeReceiveMessage({
-                    it.forEach {
-
-                        Log.d("网易云信聊天数据", it.content)
-                    }
-                }, true)
+                NIMClient.getService(MsgService::class.java).registerCustomAttachmentParser(CustomAttachParser())
             }
             "logout" -> LsChatUtil.logOut(result)
             "enterChatRoom" -> {
-
-                LsChatUtil.enterChatRoom(call.argument<String>("roomId")!!, call.argument<String>("nicName")!!, result)
+                LsChatUtil.enterWithLog(call.argument<String>("roomId")!!, call.argument<String>("nicName")!!, result)
+            }
+            "enterChatRoomWithOutLog" -> {
+                LsChatUtil.enterWithOutLog(call.argument<String>("roomId")!!, call.argument<String>("url")!!, result)
             }
             "exitChatRoom" -> LsChatUtil.exitChatRoom(call.argument<String>("roomId")!!, result)
             "sendTextMessage" -> LsChatUtil.sendTextMessage(call.argument<String>("message")!!, call.argument<String>("nicName")!!, call.argument<String>("roomId")!!, result)
@@ -157,7 +136,8 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
             "removeListener" -> {
                 LsChatUtil.addAuthStatusListener(statusListener, false)
             }
-            "sendTextMessage2Friend" -> {
+            "sendPlayerExitMessage" -> {
+                LsChatUtil.sendPlayerExitMessage(call.argument<String>("roomId")!!, result)
 //                LsChatUtil.sendMessage2F()
             }
 
