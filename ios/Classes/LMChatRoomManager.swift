@@ -7,6 +7,7 @@
 
 import UIKit
 import NIMSDK
+import Alamofire
 
 class LMChatRoomManager: NSObject {
     
@@ -22,6 +23,31 @@ class LMChatRoomManager: NSObject {
        enterChatRoom(withRequest: request, result: result)
         
     }
+    
+    //独立模式下聊天室注册ip地址
+    func chatRoomIndependentModeregisterIP(roomId: String){
+           
+        Alamofire.request("https://dev-h5.365jiake.com/appapi/live/ChatRoomRequestAddr?roomid=\(roomId)").responseJSON { (response) in
+            switch response.result {
+                case .success(let json):
+                    print(json)
+                    break
+                case .failure(let error):
+                    print("error:\(error)")
+                    break
+                }
+        
+        }
+        
+        
+           NIMChatroomIndependentMode.registerRequestChatroomAddressesHandler { (roomId, callback) in
+           
+               callback(nil, [address])
+               
+           }
+           
+       }
+    
     
     func enterChatRoom(withRequest request: NIMChatroomEnterRequest,result: @escaping FlutterResult){
         //进入聊天室
