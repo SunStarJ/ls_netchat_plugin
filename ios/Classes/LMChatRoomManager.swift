@@ -20,17 +20,47 @@ class LMChatRoomManager: NSObject {
         request.roomId = roomid;
         request.roomNickname = nickName;
         
-       enterChatRoom(withRequest: request, result: result)
+        enterChatRoom(withRequest: request, result: result)
+
+    }
+    
+    func independentModeJoinChatRoom(withRoomId roomid: String,result: @escaping FlutterResult){
+        
+        let request = NIMChatroomEnterRequest();
+        
+        request.roomNickname = "游客\(Int(Date().timeIntervalSince1970))"
+        request.roomAvatar = ""
+        request.roomId = roomid;
+        
+        let mode = NIMChatroomIndependentMode()
+        //mode.username = "游客\(Int(Date().timeIntervalSince1970))";
+        request.mode = mode;
+        
+        //注册ip地址监听
+        NIMChatroomIndependentMode.registerRequestChatroomAddressesHandler { (roomId, callback) in
+            self.chatRoomIndependentModeregisterIP(roomId: roomId, callback: callback)
+        }
+        
+        enterChatRoom(withRequest: request, result: result)
         
     }
     
-    //独立模式下聊天室注册ip地址
-    func chatRoomIndependentModeregisterIP(roomId: String){
+    
+    //获取该房间独立的模式的ip
+    func chatRoomIndependentModeregisterIP(roomId: String,callback: @escaping NIMRequestChatroomAddressesCallback){
            
         Alamofire.request("https://dev-h5.365jiake.com/appapi/live/ChatRoomRequestAddr?roomid=\(roomId)").responseJSON { (response) in
             switch response.result {
                 case .success(let json):
                     print(json)
+                    
+                    if let d = response.data{
+                    
+                        let addresss = self.dealResponseData(data: d,error: response.error)
+                        
+                        callback(response.error,addresss);
+                        
+                    }
                     break
                 case .failure(let error):
                     print("error:\(error)")
@@ -38,15 +68,35 @@ class LMChatRoomManager: NSObject {
                 }
         
         }
-        
-        
-           NIMChatroomIndependentMode.registerRequestChatroomAddressesHandler { (roomId, callback) in
-           
-               callback(nil, [address])
-               
-           }
            
        }
+    
+    
+    func dealResponseData(data: Data,error: Error?) -> [String]{
+        
+           let dict = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+            
+          let dic: [String:[String]] = dict as! [String : [String]];
+
+          let ips: [String] = dic["data"] ?? [];
+
+        return ips;
+        
+    }
+    
+    
+//    //独立模式下聊天室注册ip地址
+//    func registerRequestChatroomAddresses(address: [String],error: Error?){
+//        NIMChatroomIndependentMode.registerRequestChatroomAddressesHandler { (roomId, callback) in
+//
+//
+//            self.chatRoomIndependentModeregisterIP(roomId: roomId, callback: callback)
+//
+////            print(roomId);
+////            callback(error, address)
+//
+//        }
+//    }
     
     
     func enterChatRoom(withRequest request: NIMChatroomEnterRequest,result: @escaping FlutterResult){

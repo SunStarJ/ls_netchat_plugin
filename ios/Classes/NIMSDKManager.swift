@@ -22,6 +22,8 @@ class NIMSDKManager: LMBaseFlutterManager{
         NIMSDK.shared().register(with: regisOption)
         //打开输出
         NIMSDK.shared().enableConsoleLog();
+        //添加监听
+        addListener();
         
     }
     
@@ -30,14 +32,12 @@ class NIMSDKManager: LMBaseFlutterManager{
         
         NIMSDK.shared().loginManager.add(self);
         NIMSDK.shared().chatroomManager.add(self);
+        self.addChatObsever();
         
     }
     
     
     func login(withAccount account: String,token: String,result: @escaping FlutterResult){
-        
-        //添加监听
-        addListener();
         
         //2.手动登录
         NIMSDK.shared().loginManager.login(account, token: token) { [weak self] (error) in
@@ -52,8 +52,6 @@ class NIMSDKManager: LMBaseFlutterManager{
                     
                 result(LMTools.resultSuccessToFlutter(des: "登录成功"))
                 
-                //登陆成功后添加消息监听
-                self?.addChatObsever()
                 result(NIMSDK.shared().loginManager.currentAccount());
                 
             }
