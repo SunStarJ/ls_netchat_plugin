@@ -1,6 +1,5 @@
 package com.example.lsnetchatplugin;
 
-import com.google.gson.JsonObject;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachmentParser;
 

@@ -1,38 +1,19 @@
 package com.example.lsnetchatplugin
 
 import android.content.Context
-import android.os.Environment
-import android.text.TextUtils
-import android.util.Log
 import androidx.annotation.NonNull
-import com.google.gson.Gson
 import com.netease.nimlib.sdk.*
-import com.netease.nimlib.sdk.auth.AuthService
-import com.netease.nimlib.sdk.auth.LoginInfo
-import com.netease.nimlib.sdk.chatroom.ChatRoomMessageBuilder
-import com.netease.nimlib.sdk.chatroom.ChatRoomService
-import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomInfo
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomNotificationAttachment
-import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData
-import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.netease.nimlib.sdk.msg.MsgService
-import com.netease.nimlib.sdk.msg.MsgServiceObserve
-import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
-import com.netease.nimlib.sdk.msg.constant.NotificationType
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
-import com.netease.nimlib.sdk.util.api.RequestResult
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import io.reactivex.rxjava3.core.Observable
-import java.io.IOException
+import com.example.lsnetchatplugin.CustomAttachParser
 
 
 /** LsnetchatpluginPlugin */
@@ -90,7 +71,7 @@ public class LsnetchatpluginPlugin : FlutterPlugin, MethodCallHandler {
 
             override fun onCancel(arguments: Any?) {
 
-            }
+            } 
         })
     }
 

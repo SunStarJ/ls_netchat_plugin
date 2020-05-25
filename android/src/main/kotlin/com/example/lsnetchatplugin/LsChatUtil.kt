@@ -5,6 +5,8 @@ import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.NonNull
+import com.example.lsnetchatplugin.pluginData.RoomData
+import com.google.gson.Gson
 import com.netease.nimlib.sdk.*
 import com.netease.nimlib.sdk.auth.AuthService
 import com.netease.nimlib.sdk.auth.AuthServiceObserver
@@ -14,6 +16,8 @@ import com.netease.nimlib.sdk.chatroom.ChatRoomService
 import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver
 import com.netease.nimlib.sdk.chatroom.model.*
 import io.flutter.plugin.common.MethodChannel
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.IOException
 
 
@@ -44,16 +48,16 @@ object LsChatUtil {
         NIMClient.getService(ChatRoomServiceObserver::class.java).observeReceiveMessage(listener, isAdd)
     }
 
-    fun sendPlayerExitMessage(roomId:String,result: MethodChannel.Result){
+    fun sendPlayerExitMessage(roomId: String, result: MethodChannel.Result) {
         val attachment = ExitMessage()
-        val message = ChatRoomMessageBuilder.createChatRoomCustomMessage(roomId,attachment)
+        val message = ChatRoomMessageBuilder.createChatRoomCustomMessage(roomId, attachment)
         NIMClient.getService(ChatRoomService::class.java).sendMessage(message, false).setCallback(object : RequestCallback<Void> {
             override fun onSuccess(param: Void?) {
-                result.success(mapOf("code" to 0,"message" to "发送成功"))
+                result.success(mapOf("code" to 0, "message" to "发送成功"))
             }
 
             override fun onFailed(code: Int) {
-                result.success(mapOf("code" to code,"message" to "发送失败"))
+                result.success(mapOf("code" to code, "message" to "发送失败"))
             }
 
             override fun onException(exception: Throwable?) {
@@ -89,26 +93,40 @@ object LsChatUtil {
     ///独立进入聊天室
     fun enterWithOutLog(roomId: String, url: String, result: MethodChannel.Result) {
         val chatRoom = EnterChatRoomData(roomId)
-        chatRoom.nick = "警员9527"
+        chatRoom.nick = "游客${System.currentTimeMillis()}"
         chatRoom.avatar = "https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1590201325&di=e27a648c7fc2bb0582e9a1fdd21af9b1&src=http://a0.att.hudong.com/64/76/20300001349415131407760417677.jpg"
         chatRoom.setIndependentMode(object : ChatRoomIndependentCallback {
             override fun getChatRoomLinkAddresses(roomId: String?, account: String?): MutableList<String> {
-                /// TODO 添加获取接口兄弟
-                Log.d("roomRoomId",roomId)
-                Log.d("roomAccont",account)
-                return mutableListOf("");
+                var request = Request.Builder()
+                        .get()
+                        .header("Server","nginx/1.17.2")
+                        .addHeader("Content-Type","application/json; charset=utf-8")
+                        .url("https://dev-h5.365jiake.com/appapi/live/ChatRoomRequestAddr?roomid=${roomId}").build()
+                var res = OkHttpClient().newCall(request).execute()
+                var resultList = mutableListOf<String>()
+                var roomData:RoomData?= null
+                res.body?.run {
+                    roomData = Gson().fromJson<RoomData>(this.string(),RoomData::class.java)
+                }
+                roomData?.run {
+                    resultList = data
+                }
+                return resultList;
             }
         }, null, null)
-        NIMClient.getService(ChatRoomService::class.java).enterChatRoomEx(chatRoom, 1).setCallback(object : RequestCallback<EnterChatRoomData> {
-            override fun onSuccess(param: EnterChatRoomData?) {
+        NIMClient.getService(ChatRoomService::class.java).enterChatRoomEx(chatRoom, 1).setCallback(object : RequestCallback<EnterChatRoomResultData> {
+            override fun onSuccess(param: EnterChatRoomResultData?) {
+                Log.d("=======独立进入=====>","进入成功")
                 result.success(mapOf("code" to 0, "message" to "进入成功"))
             }
 
             override fun onFailed(code: Int) {
+                Log.d("=======独立进入=====>", ChatRoomResult.getEnterChatRoomMessage(code))
                 result.success(mapOf("code" to code, "message" to ChatRoomResult.getEnterChatRoomMessage(code)))
             }
 
             override fun onException(exception: Throwable?) {
+                Log.d("=======独立进入=====>", exception.toString())
                 result.success(mapOf("code" to -10, "message" to exception.toString()))
             }
         })

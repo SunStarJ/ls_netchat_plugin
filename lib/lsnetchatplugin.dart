@@ -56,7 +56,7 @@ class Lsnetchatplugin {
   }
 
   static enterRoomWithOutLogin(String roomId, String url) => _channel
-      .invokeMethod("enterChatRoomWithOutLog", {"roomId": roomId, "url": url});
+      .invokeMethod("enterChatRoomWithOutLog", {"roomId": roomId,url:""});
 
   static LSNetChatPluginMethodChannelResultData dealMethodChannelResultMap(
       Map data) {
