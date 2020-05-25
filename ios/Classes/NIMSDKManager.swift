@@ -49,8 +49,6 @@ class NIMSDKManager: LMBaseFlutterManager{
                 result(LMTools.resultErrorToFlutter(error: e))
     
             }else{
-                    
-                result(LMTools.resultSuccessToFlutter(des: "登录成功"))
                 
                 result(NIMSDK.shared().loginManager.currentAccount());
                 
@@ -198,6 +196,23 @@ class NIMSDKManager: LMBaseFlutterManager{
     }
 
     
+    //一条自定义直播关闭消息
+    func sendLiveEndMessage(sessionId: String,nicName: String,result: @escaping FlutterResult){
+        
+        let session = NIMSession(sessionId, type: NIMSessionType.chatroom);
+        
+        let endLiveMsg = NIMMessage();
+        
+        let customMsg = NIMCustomObject();
+        customMsg.attachment = LMLiveEndAttachment()
+        
+        endLiveMsg.messageObject = customMsg;
+        
+        sendNIMMessage(message: endLiveMsg, session: session, result: result)
+        
+    }
+    
+    
     //发送一条文本消息
     func sendATextMessage(text: String,sessionId: String,nicName: String,result: @escaping FlutterResult){
         
@@ -206,19 +221,27 @@ class NIMSDKManager: LMBaseFlutterManager{
         textMsg.text = text;
         textMsg.messageExt = nicName;
         
-        NIMSDK.shared().chatManager.send(textMsg, to: session) { (error) in
-            
-            if let e = error{
-                print("LM_发送文本消息:\(e)")
-                 result(LMTools.resultErrorToFlutter(error: e))
-                
-            }else{
-                print("LM_发送文本消息成功")
-                result(LMTools.resultSuccessToFlutter(des: "发送文本消息成功"))
-            }
-            
-        }
+        sendNIMMessage(message: textMsg, session: session, result: result)
+        
     }
+    
+    //
+    func sendNIMMessage(message: NIMMessage,session: NIMSession,result: @escaping FlutterResult) {
+        
+        NIMSDK.shared().chatManager.send(message, to: session) { (error) in
+            
+//            if let e = error{
+//                print("LM_发送文本消息:\(e)")
+//                 result(LMTools.resultErrorToFlutter(error: e))
+//
+//            }else{
+//                print("LM_发送文本消息成功")
+//                result(LMTools.resultSuccessToFlutter(des: "发送文本消息成功"))
+//            }
+        }
+        
+    }
+    
     
     func LMLogError(des:String,error: Error?){
         if let e = error{
@@ -299,6 +322,20 @@ extension NIMSDKManager: NIMChatManagerDelegate{
     //收到消息回调
     func onRecvMessages(_ messages: [NIMMessage]) {
         MessageListenerChannelSupport.sharedInstance.sendMessageToFlutter(messages: messages)
+        
+    }
+    
+    func send(_ message: NIMMessage, didCompleteWithError error: Error?) {
+        
+        if let e = error{
+            print("LM_发送文本消息:\(e)")
+            MessageListenerChannelSupport.sharedInstance.messageSendResultEventChannelToFlutter(des: "LM_发送消息失败:\(e)");
+            
+        }else{
+            
+            MessageListenerChannelSupport.sharedInstance.messageSendResultEventChannelToFlutter(des: "LM_发送消息成功");
+        }
+        
         
     }
     

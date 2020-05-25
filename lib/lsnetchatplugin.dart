@@ -81,10 +81,10 @@ class Lsnetchatplugin {
 
   ///进入聊天室
   static Future<LSNetChatPluginMethodChannelResultData> enterChatRoom(
-          String roomId, String nicName,{String isIndependentMode = "1"}) =>
+          String roomId, String nicName) =>
 
       _channel.invokeMethod(
-          "enterChatRoom", {"roomId": roomId, "nicName": nicName,"isIndependentMode":isIndependentMode}).then((data) {
+          "enterChatRoom", {"roomId": roomId, "nicName": nicName}).then((data) {
         print(data);
 
         return dealMethodChannelResultMap(data);

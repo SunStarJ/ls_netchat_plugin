@@ -100,10 +100,21 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.sendTextMessage(_controller.text,_roomId,"樱桃大丸子");
-                  print(_controller.text);
+//                  Lsnetchatplugin.sendTextMessage(_controller.text,_roomId,"樱桃大丸子");
+//                  print(_controller.text);
+
+                  Lsnetchatplugin.stopPlayer(_roomId);
+
                 },
                 child: Text("发送消息"),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  Lsnetchatplugin.sendTextMessage(_controller.text,_roomId,"樱桃大丸子");
+                  print(_controller.text);
+
+                },
+                child: Text("退出直播消息"),
               ),
               MaterialButton(
                 onPressed: () {
