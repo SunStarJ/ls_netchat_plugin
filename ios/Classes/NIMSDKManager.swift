@@ -50,7 +50,7 @@ class NIMSDKManager: LMBaseFlutterManager{
     
             }else{
                 
-                result(NIMSDK.shared().loginManager.currentAccount());
+                result(LMTools.resultSuccessToFlutter(des: NIMSDK.shared().loginManager.currentAccount()));
                 
             }
         }
