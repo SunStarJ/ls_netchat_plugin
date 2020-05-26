@@ -16,7 +16,7 @@ A new Flutter plugin.
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
   s.dependency 'NIMSDK'
-  s.dependency 'Alamofire'
+  s.dependency 'Alamofire','4.9.1'
   #s.dependency 'Moya'
   s.platform = :ios, '8.0'
 

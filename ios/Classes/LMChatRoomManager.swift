@@ -48,7 +48,9 @@ class LMChatRoomManager: NSObject {
     
     //获取该房间独立的模式的ip
     func chatRoomIndependentModeregisterIP(roomId: String,callback: @escaping NIMRequestChatroomAddressesCallback){
-           
+
+        
+        
         Alamofire.request("https://dev-h5.365jiake.com/appapi/live/ChatRoomRequestAddr?roomid=\(roomId)").responseJSON { (response) in
             switch response.result {
                 case .success(let json):

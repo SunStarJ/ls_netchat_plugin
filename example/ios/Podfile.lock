@@ -2,7 +2,7 @@ PODS:
   - Alamofire (4.9.1)
   - Flutter (1.0.0)
   - lsnetchatplugin (0.0.1):
-    - Alamofire
+    - Alamofire (= 4.9.1)
     - Flutter
     - NIMSDK
   - NIMSDK (7.4.0)
@@ -25,7 +25,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  lsnetchatplugin: 6ea42f7a3ef18c225b4cae43e05cf894592c669a
+  lsnetchatplugin: 36208776c89f9ed656e74a6e6c931c375698bbba
   NIMSDK: 8759a66276dbeb633a62833d96ea57bdb046f611
 
 PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
