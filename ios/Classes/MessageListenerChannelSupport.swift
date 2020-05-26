@@ -13,6 +13,8 @@ enum ResultType: Int {
     case error = -1;
     //接收到消息
     case receiveMessage = 105;
+//    //发送直播结束消息
+//    case sendLiveEndMessage = 401;
 }
 
 
@@ -104,6 +106,12 @@ class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler
         
         self.eventSink?(des);
     }
+    
+    func messageSendResultEventChannelToFlutter(des: String){
+        
+        self.eventSink?(des);
+    }
+    
     
     func createResult(type:ResultType,data:Any)->Dictionary<String, Any>{
         

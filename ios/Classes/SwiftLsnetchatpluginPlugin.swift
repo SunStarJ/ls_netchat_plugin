@@ -28,8 +28,11 @@ public class SwiftLsnetchatpluginPlugin: NSObject, FlutterPlugin {
             NIMSDKManager.shareInstance.logoutIM(result: result)
         break;
         case "enterChatRoom"://进入聊天室
-            LMChatRoomManager.shareInstance.joinChatRoom(withRoomId: dict?["roomId"] ?? "", nickName: dict?["nicName"] ?? "",result: result)
+                LMChatRoomManager.shareInstance.joinChatRoom(withRoomId: dict?["roomId"] ?? "", nickName: dict?["nicName"] ?? "",result: result)
         break;
+        case "enterChatRoomWithOutLog":
+            LMChatRoomManager.shareInstance.independentModeJoinChatRoom(withRoomId: dict?["roomId"] ?? "", result: result)
+        break
         case "exitChatRoom"://离开聊天室
             LMChatRoomManager.shareInstance.exitChatRoom(withRoomId: dict?["roomId"] ?? "",result: result)
         break;
@@ -44,6 +47,9 @@ public class SwiftLsnetchatpluginPlugin: NSObject, FlutterPlugin {
         break;
         case "removeMessageListener"://移除聊天消息监听
             NIMSDKManager.shareInstance.removeChatObsever()
+        break;
+        case "sendPlayerExitMessage":
+            NIMSDKManager.shareInstance.sendLiveEndMessage(sessionId: dict?["roomId"] ?? "", nicName: "", result: result)
         break;
         default:
             result(FlutterMethodNotImplemented);

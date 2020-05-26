@@ -82,6 +82,7 @@ class Lsnetchatplugin {
   ///进入聊天室
   static Future<LSNetChatPluginMethodChannelResultData> enterChatRoom(
           String roomId, String nicName) =>
+
       _channel.invokeMethod(
           "enterChatRoom", {"roomId": roomId, "nicName": nicName}).then((data) {
         print(data);
