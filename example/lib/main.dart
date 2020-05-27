@@ -77,10 +77,10 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.enterChatRoom(_roomId, "信陵公子").then((data){
-                    print("enterChatRoom:${data}");
-                  });
-//                  Lsnetchatplugin.enterRoomWithOutLogin(_roomId, "url");
+//                  Lsnetchatplugin.enterChatRoom(_roomId, "信陵公子").then((data){
+//                    print("enterChatRoom:${data}");
+//                  });
+                  Lsnetchatplugin.enterRoomWithOutLogin(_roomId, "https://beta-h5.365jiake.com");
                 },
                 child: Text("进入聊天室"),
               ),
