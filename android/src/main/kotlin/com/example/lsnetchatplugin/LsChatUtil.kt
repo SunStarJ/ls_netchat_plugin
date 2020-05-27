@@ -101,7 +101,7 @@ object LsChatUtil {
                     .get()
                     .header("Server","nginx/1.17.2")
                     .addHeader("Content-Type","application/json; charset=utf-8")
-                    .url("${url}/appapi/live/ChatRoomRequestAddr?roomid=$roomId").build()
+                    .url("$url").build()
             var res = OkHttpClient().newCall(request).execute()
             var resultList = mutableListOf<String>()
             var roomData:RoomData?= null
