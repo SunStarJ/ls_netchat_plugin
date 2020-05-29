@@ -15,6 +15,9 @@ enum ResultType: Int {
     case receiveMessage = 105;
 //    //发送直播结束消息
 //    case sendLiveEndMessage = 401;
+    
+    //String类型信息回传
+    case stringType = 999;
 }
 
 
@@ -99,17 +102,17 @@ class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler
     
     func LoginStatusEventChannelToFlutter(des: String){
         
-        self.eventSink?(des);
+        self.eventSink?(self.createResult(type: .stringType, data: des));
     }
     
     func ChatRoomLinkEventChannelToFlutter(des: String){
         
-        self.eventSink?(des);
+        self.eventSink?(self.createResult(type: .stringType, data: des));
     }
     
     func messageSendResultEventChannelToFlutter(des: String){
         
-        self.eventSink?(des);
+        self.eventSink?(self.createResult(type: .stringType, data: des));
     }
     
     

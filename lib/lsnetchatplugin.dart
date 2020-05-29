@@ -20,7 +20,7 @@ class Lsnetchatplugin {
   //eventChannel监听分发中心
   static eventChannelDistribution() {
     _eventChannel.receiveBroadcastStream().listen((data) {
-      print(data);
+//      print(data);
       int type = data["type"];
 
       switch (type) {
