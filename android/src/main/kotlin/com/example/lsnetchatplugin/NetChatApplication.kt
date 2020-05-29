@@ -9,6 +9,7 @@ abstract class NetChatApplication : FlutterApplication() {
     override fun onCreate() {
         super.onCreate()
         NIMClient.init(applicationContext, null, buildOptions(initApplicationKey()))
+        NIMClient.getService(MsgService::class.java).registerCustomAttachmentParser(CustomAttachParser())
     }
 
     private fun buildOptions(appk:String): SDKOptions {

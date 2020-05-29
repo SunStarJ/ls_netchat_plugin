@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _userData = '';
 
-  String _roomId = "176989645";
+  String _roomId = "178001984";
   TextEditingController _controller = TextEditingController();
 
   @override
@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
 //                    });
 //                  });
                   Lsnetchatplugin.login(
-                      "lm123456789", "5e15369debb7230611b81dd65bf05d92")
+                      "betayyt_814", "ad7d35f932208fa3ad182963b9757c0b")
                       .then((data) {
                     setState(() {
                       _userData = "登录${data.message}";
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
 //                  Lsnetchatplugin.enterChatRoom(_roomId, "信陵公子").then((data){
 //                    print("enterChatRoom:${data}");
 //                  });
-                  Lsnetchatplugin.enterRoomWithOutLogin(_roomId, "https://beta-h5.365jiake.com");
+                  Lsnetchatplugin.enterRoomWithOutLogin(_roomId, "https://beta-h5.365jiake.com/appapi/live/ChatRoomRequestAddr?roomid=$_roomId");
                 },
                 child: Text("进入聊天室"),
               ),
@@ -100,10 +100,10 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () {
-//                  Lsnetchatplugin.sendTextMessage(_controller.text,_roomId,"樱桃大丸子");
+                  Lsnetchatplugin.sendTextMessage(_controller.text,_roomId,"樱桃大丸子");
 //                  print(_controller.text);
 
-                  Lsnetchatplugin.stopPlayer(_roomId);
+//                  Lsnetchatplugin.stopPlayer(_roomId);
 
                 },
                 child: Text("发送消息"),
