@@ -24,7 +24,7 @@ class LMChatRoomManager: NSObject {
 
     }
     
-    func independentModeJoinChatRoom(withRoomId roomid: String,result: @escaping FlutterResult){
+    func independentModeJoinChatRoom(withRoomId roomid: String,getIPUrl: String,result: @escaping FlutterResult){
         
         let request = NIMChatroomEnterRequest();
         
@@ -38,7 +38,7 @@ class LMChatRoomManager: NSObject {
         
         //注册ip地址监听
         NIMChatroomIndependentMode.registerRequestChatroomAddressesHandler { (roomId, callback) in
-            self.chatRoomIndependentModeregisterIP(roomId: roomId, callback: callback)
+            self.chatRoomIndependentModeregisterIP(roomId: roomId, getIPUrl: getIPUrl, callback: callback)
         }
         
         enterChatRoom(withRequest: request, result: result)
@@ -47,11 +47,9 @@ class LMChatRoomManager: NSObject {
     
     
     //获取该房间独立的模式的ip
-    func chatRoomIndependentModeregisterIP(roomId: String,callback: @escaping NIMRequestChatroomAddressesCallback){
-
-        
-        
-        Alamofire.request("https://dev-h5.365jiake.com/appapi/live/ChatRoomRequestAddr?roomid=\(roomId)").responseJSON { (response) in
+    func chatRoomIndependentModeregisterIP(roomId: String,getIPUrl: String,callback: @escaping NIMRequestChatroomAddressesCallback){
+//https://beta-h5.365jiake.com/appapi/live/ChatRoomRequestAddr?roomid=\(roomId)
+        Alamofire.request(getIPUrl).responseJSON { (response) in
             switch response.result {
                 case .success(let json):
                     print(json)
@@ -85,21 +83,6 @@ class LMChatRoomManager: NSObject {
         return ips;
         
     }
-    
-    
-//    //独立模式下聊天室注册ip地址
-//    func registerRequestChatroomAddresses(address: [String],error: Error?){
-//        NIMChatroomIndependentMode.registerRequestChatroomAddressesHandler { (roomId, callback) in
-//
-//
-//            self.chatRoomIndependentModeregisterIP(roomId: roomId, callback: callback)
-//
-////            print(roomId);
-////            callback(error, address)
-//
-//        }
-//    }
-    
     
     func enterChatRoom(withRequest request: NIMChatroomEnterRequest,result: @escaping FlutterResult){
         //进入聊天室

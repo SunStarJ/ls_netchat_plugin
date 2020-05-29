@@ -31,7 +31,7 @@ public class SwiftLsnetchatpluginPlugin: NSObject, FlutterPlugin {
                 LMChatRoomManager.shareInstance.joinChatRoom(withRoomId: dict?["roomId"] ?? "", nickName: dict?["nicName"] ?? "",result: result)
         break;
         case "enterChatRoomWithOutLog":
-            LMChatRoomManager.shareInstance.independentModeJoinChatRoom(withRoomId: dict?["roomId"] ?? "", result: result)
+            LMChatRoomManager.shareInstance.independentModeJoinChatRoom(withRoomId: dict?["roomId"] ?? "", getIPUrl: dict?["url"] ?? "", result: result)
         break
         case "exitChatRoom"://离开聊天室
             LMChatRoomManager.shareInstance.exitChatRoom(withRoomId: dict?["roomId"] ?? "",result: result)
