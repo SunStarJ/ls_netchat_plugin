@@ -26,7 +26,7 @@ class LMTools {
               
            let e: NSError = error as NSError
            
-           let errorDes: String = e.userInfo["NSLocalizedDescription"] as! String;
+           let errorDes: String = e.userInfo["NSLocalizedDescription"] as? String ?? "";
            
            return [
                 "code": e.code,
