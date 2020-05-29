@@ -80,6 +80,7 @@ class _MyAppState extends State<MyApp> {
 //                  Lsnetchatplugin.enterChatRoom(_roomId, "信陵公子").then((data){
 //                    print("enterChatRoom:${data}");
 //                  });
+
                   Lsnetchatplugin.enterRoomWithOutLogin(_roomId, "url");
                 },
                 child: Text("独立进入聊天室"),
@@ -89,7 +90,6 @@ class _MyAppState extends State<MyApp> {
                   Lsnetchatplugin.enterChatRoom(_roomId, "面对疾风吧").then((data){
                     print("enterChatRoom:${data}");
                   });
-
                 },
                 child: Text("非独立进入聊天室"),
               ),
