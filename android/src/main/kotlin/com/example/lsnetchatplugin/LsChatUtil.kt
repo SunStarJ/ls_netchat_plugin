@@ -16,6 +16,9 @@ import com.netease.nimlib.sdk.chatroom.ChatRoomService
 import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver
 import com.netease.nimlib.sdk.chatroom.model.*
 import io.flutter.plugin.common.MethodChannel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
@@ -92,42 +95,41 @@ object LsChatUtil {
 
     ///独立进入聊天室
     fun enterWithOutLog(roomId: String, url: String, result: MethodChannel.Result) {
-        Log.d("=======独立进入请求地址=====>",url)
+        Log.d("=======独立进入请求地址=====>", url)
         val chatRoom = EnterChatRoomData(roomId)
         chatRoom.nick = "游客${System.currentTimeMillis()}"
         chatRoom.avatar = "https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1590201325&di=e27a648c7fc2bb0582e9a1fdd21af9b1&src=http://a0.att.hudong.com/64/76/20300001349415131407760417677.jpg"
-        chatRoom.setIndependentMode({ roomId, account ->
-            var request = Request.Builder()
-                    .get()
-                    .header("Server","nginx/1.17.2")
-                    .addHeader("Content-Type","application/json; charset=utf-8")
-                    .url("$url").build()
-            var res = OkHttpClient().newCall(request).execute()
+        Observable.just(url).map {
             var resultList = mutableListOf<String>()
-            var roomData:RoomData?= null
-            roomData = Gson().fromJson<RoomData>(res.body!!.string(),RoomData::class.java)
+            var roomData: RoomData? = null
+            roomData = Gson().fromJson<RoomData>(HttpUtils.doGet(url), RoomData::class.java)
             roomData?.run {
                 resultList = data!!
             }
-            Log.d("=======独立进入地址=====>","啦啦啦啦啦")
+            Log.d("=======独立进入地址=====>", "啦啦啦啦啦")
             resultList;
-        }, null, null)
-        NIMClient.getService(ChatRoomService::class.java).enterChatRoomEx(chatRoom, 1).setCallback(object : RequestCallback<EnterChatRoomResultData> {
-            override fun onSuccess(param: EnterChatRoomResultData?) {
-                Log.d("=======独立进入=====>","进入成功")
-                result.success(mapOf("code" to 0, "message" to "进入成功"))
-            }
+        }.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe {
+            chatRoom.setIndependentMode({ roomId, account ->
+                it
+            }, null, null)
+            NIMClient.getService(ChatRoomService::class.java).enterChatRoomEx(chatRoom, 1).setCallback(object : RequestCallback<EnterChatRoomResultData> {
+                override fun onSuccess(param: EnterChatRoomResultData?) {
+                    Log.d("=======独立进入=====>", "进入成功")
+                    result.success(mapOf("code" to 0, "message" to "进入成功"))
+                }
 
-            override fun onFailed(code: Int) {
-                Log.d("=======独立进入=====>", ChatRoomResult.getEnterChatRoomMessage(code))
-                result.success(mapOf("code" to code, "message" to ChatRoomResult.getEnterChatRoomMessage(code)))
-            }
+                override fun onFailed(code: Int) {
+                    Log.d("=======独立进入=====>", ChatRoomResult.getEnterChatRoomMessage(code))
+                    result.success(mapOf("code" to code, "message" to ChatRoomResult.getEnterChatRoomMessage(code)))
+                }
 
-            override fun onException(exception: Throwable?) {
-                Log.d("=======独立进入=====>", exception.toString())
-                result.success(mapOf("code" to -10, "message" to exception.toString()))
-            }
-        })
+                override fun onException(exception: Throwable?) {
+                    Log.d("=======独立进入=====>", exception.toString())
+                    result.success(mapOf("code" to -10, "message" to exception.toString()))
+                }
+            })
+        }
+
     }
 
     ///非独立进入聊天室
