@@ -7,6 +7,7 @@ import com.netease.nimlib.sdk.msg.MsgService
 import com.netease.nimlib.sdk.util.NIMUtil
 import io.flutter.app.FlutterApplication
 
+
 abstract class NetChatApplication : FlutterApplication() {
     override fun onCreate() {
         super.onCreate()
