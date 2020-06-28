@@ -14,13 +14,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _userData = '';
 
-  String _roomId = "178462880";
+  String _roomId = "178001984";
   TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    Lsnetchatplugin.initChatUtil("991205bae39189c2aa562cf4554bbdbc");
+    Lsnetchatplugin.initChatUtil("8d4f15775c9cb2a2a44fca0025e4c0a0");
     initPlatformState();
 
   }
@@ -80,22 +80,13 @@ class _MyAppState extends State<MyApp> {
 //                  Lsnetchatplugin.enterChatRoom(_roomId, "信陵公子").then((data){
 //                    print("enterChatRoom:${data}");
 //                  });
-
-                  Lsnetchatplugin.enterRoomWithOutLogin(_roomId, "https://dev-h5.365jiake.com/appapi/live/ChatRoomRequestAddr?roomid=");
+                  Lsnetchatplugin.enterRoomWithOutLogin(_roomId, "https://beta-h5.365jiake.com/appapi/live/ChatRoomRequestAddr?roomid=$_roomId");
                 },
-                child: Text("独立进入聊天室"),
+                child: Text("进入聊天室"),
               ),
               MaterialButton(
                 onPressed: () {
-                  Lsnetchatplugin.enterChatRoom(_roomId, "面对疾风吧").then((data){
-                    print("enterChatRoom:${data}");
-                  });
-                },
-                child: Text("非独立进入聊天室"),
-              ),
-              MaterialButton(
-                onPressed: () {
-                  Lsnetchatplugin.exitChatRoom(_roomId);
+                  Lsnetchatplugin.stopPlayer(_roomId);
                 },
                 child: Text("退出聊天室"),
               ),
@@ -112,16 +103,16 @@ class _MyAppState extends State<MyApp> {
                   Lsnetchatplugin.sendTextMessage(_controller.text,_roomId,"樱桃大丸子");
 //                  print(_controller.text);
 
-                 // Lsnetchatplugin.stopPlayer(_roomId);
+//                  Lsnetchatplugin.stopPlayer(_roomId);
 
                 },
                 child: Text("发送消息"),
               ),
               MaterialButton(
                 onPressed: () {
-//                  Lsnetchatplugin.sendTextMessage(_controller.text,_roomId,"樱桃大丸子");
-//                  print(_controller.text);
-                  Lsnetchatplugin.stopPlayer(_roomId);
+                  Lsnetchatplugin.sendTextMessage(_controller.text,_roomId,"樱桃大丸子");
+                  print(_controller.text);
+
                 },
                 child: Text("退出直播消息"),
               ),
