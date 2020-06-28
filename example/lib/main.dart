@@ -14,13 +14,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _userData = '';
 
-  String _roomId = "178001984";
+  String _roomId = "178462880";
   TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    Lsnetchatplugin.initChatUtil("9bb7a8db4c47bef4c1300d02ddc624a2");
+    Lsnetchatplugin.initChatUtil("991205bae39189c2aa562cf4554bbdbc");
     initPlatformState();
 
   }
@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
 //                    print("enterChatRoom:${data}");
 //                  });
 
-                  Lsnetchatplugin.enterRoomWithOutLogin(_roomId, "url");
+                  Lsnetchatplugin.enterRoomWithOutLogin(_roomId, "https://dev-h5.365jiake.com/appapi/live/ChatRoomRequestAddr?roomid=");
                 },
                 child: Text("独立进入聊天室"),
               ),

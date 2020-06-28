@@ -76,10 +76,10 @@ class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler
                         
                         switch type {
                         case .enter:
-                            content = "进入聊天室"
+                            content = "进入直播间"
                             break
                         case .exit:
-                            content = "退出聊天室"
+                            content = "离开直播间"
                             break
                         default:
                             content = ""
@@ -93,6 +93,10 @@ class MessageListenerChannelSupport: NSObject,FlutterPlugin,FlutterStreamHandler
                         
                     }
                 }
+            }else if (item.messageType == .custom){
+                
+                
+                
             }
         }
         
